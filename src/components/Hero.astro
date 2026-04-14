@@ -1,0 +1,46 @@
+---
+import { ArrowRight, Play } from 'lucide-astro';
+---
+
+<section class="relative pt-32 pb-20 overflow-hidden flex justify-center">
+  <!-- Interactive Glows -->
+  <div class="absolute top-[239px] left-[592px] w-[674px] h-[650px] bg-brand-orange/20 blur-[150px] rounded-full -z-10 animate-pulse"></div>
+  <div class="absolute top-[835px] left-[-39px] w-[630px] h-[685px] bg-brand-purple/15 blur-[120px] rounded-full -z-10"></div>
+
+  <div class="max-w-[1120px] w-full flex items-center gap-12 z-10">
+    <!-- Left Column -->
+    <div class="flex flex-col items-start gap-7 w-[620px]">
+      <div class="px-4 py-2 bg-white/7 backdrop-blur-md border border-white/12 rounded-full overflow-hidden">
+        <span class="text-[11px] font-semibold text-[#cce0ff] uppercase tracking-[1.65px]">
+          SENIOR FULLSTACK ENGINEER ★
+        </span>
+      </div>
+
+      <h1 class="text-[60px] font-medium leading-[1.07] tracking-[-1.8px] bg-gradient-to-b from-white via-white via-50% to-brand-orange bg-clip-text text-transparent">
+        Your next product deserves an <span class="font-bold">engineer</span>, not just a <span class="font-bold">developer</span>.
+      </h1>
+
+      <div class="text-[#c6cad0] text-lg leading-[1.6]">
+        <p>With over a decade of experience, I specialize in bridging complex backend architectures and high-performance frontend interfaces. My approach is rooted in clean code and developer experience.</p>
+      </div>
+
+      <div class="flex items-center gap-4 mt-2">
+        <a href="#portfolio" class="flex items-center gap-2.5 px-8 py-[18px] bg-white rounded-full text-[15px] font-semibold text-[#0f121a] hover:bg-zinc-200 transition-colors">
+          View Portfolio
+          <ArrowRight size={18} />
+        </a>
+        <a href="#contact" class="flex items-center gap-2.5 px-8 py-[18px] bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-white hover:bg-white/10 transition-colors">
+          <Play size={14} class="fill-current" />
+          <span class="text-[15px] font-semibold">Let's talk</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column (Glass Visual) -->
+    <div class="shrink-0 w-[452px] h-[416px] rounded-[56px] border-[3px] border-white/40 bg-gradient-to-br from-white/36 to-white/5 backdrop-blur-2xl relative overflow-hidden group">
+        <!-- Visual decoration inside glass -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-orange/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-purple/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
+    </div>
+  </div>
+</section>

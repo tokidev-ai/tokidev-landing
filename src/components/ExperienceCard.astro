@@ -1,0 +1,54 @@
+---
+interface Props {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  color: string;
+  isCurrent?: boolean;
+}
+
+const { company, role, period, description, color, isCurrent = false } = Astro.props;
+---
+
+<div class={`relative flex flex-col items-center pt-12 px-8 h-[520px] rounded-[24px] border border-solid overflow-hidden group transition-all duration-500 hover:scale-[1.02]`} 
+     style={`border-color: ${color}1f;`}>
+  
+  <!-- Glass Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
+  
+  <!-- Period and Badge -->
+  <div class="flex items-center gap-2.5 mb-4 z-10">
+    <span class="text-[11px] font-medium text-brand-text/30 tracking-[0.66px] uppercase">
+      {period}
+    </span>
+    {isCurrent && (
+      <div class="px-2 py-1 bg-brand-orange/15 rounded-md border border-brand-orange/20">
+        <span class="text-[9px] font-bold text-brand-orange tracking-[0.72px]">CURRENT</span>
+      </div>
+    )}
+  </div>
+
+  <!-- Role and Company -->
+  <div class="text-center z-10 mb-4">
+    <h3 class="text-[32px] font-bold leading-[1.2] tracking-[-0.64px] text-white/95">
+      {role} <br /> at <br />
+      <span style={`color: ${color};`}>{company}</span>
+    </h3>
+  </div>
+
+  <!-- Description -->
+  <p class="text-[13px] font-medium text-center text-brand-text/35 leading-[1.5] max-w-[280px] z-10">
+    {description}
+  </p>
+
+  <div class="flex-grow"></div>
+
+  <!-- Glow Effect at bottom -->
+  <div class="relative w-full h-[180px] -mb-10 opacity-60 group-hover:opacity-100 transition-opacity duration-700">
+    <div class="absolute left-1/2 -translate-x-1/2 top-0 w-[280px] h-[280px] rounded-full blur-[80px]" 
+         style={`background: ${color}33;`}></div>
+    <div class="absolute left-1/2 -translate-x-1/2 top-10 w-[140px] h-[140px] rounded-full blur-[40px]" 
+         style={`background: ${color}66;`}></div>
+  </div>
+</div>

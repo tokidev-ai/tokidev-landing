@@ -1,0 +1,36 @@
+---
+import CommunityCard from './CommunityCard.astro';
+
+const awards = [
+  {
+    title: "Angular Bolivia",
+    description: "Community Lead & Technical Speaker. Organizing monthly meetups and workshops for 500+ developers.",
+    color: "#ef6c4a"
+  },
+  {
+    title: "GDG Cochabamba",
+    description: "Google Developer Group contributor, focusing on Cloud and Fullstack development tracks.",
+    color: "#7b5ea7"
+  }
+];
+---
+
+<section id="community" class="py-20 flex justify-center">
+  <div class="max-w-[1120px] w-full flex flex-col items-end">
+    
+    <!-- Section Header -->
+    <div class="w-full flex items-center justify-end gap-3 mb-10">
+      <div class="h-[1px] w-10 bg-gradient-to-r from-brand-orange to-transparent"></div>
+      <span class="text-brand-orange text-sm font-semibold uppercase tracking-[4px]">
+        COMMUNITY & AWARDS
+      </span>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+      {awards.map(award => (
+        <CommunityCard {...award} />
+      ))}
+    </div>
+  </div>
+</section>

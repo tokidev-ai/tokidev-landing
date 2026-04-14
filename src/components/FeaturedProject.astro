@@ -1,0 +1,25 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const featuredProject = {
+  id: "01",
+  title: "solveOS",
+  subtitle: "distributed problem solving",
+  description: "A distributed operating system framework for real-time problem solving. Built with Rust and WebAssembly to enable high-performance compute in browser environments.",
+  tech: ["RUST", "WASM", "REDIS"],
+  color: "#ef6c4a"
+};
+---
+
+<section id="projects" class="py-20 flex flex-col items-center">
+  <div class="max-w-[1120px] w-full mb-12 flex items-center gap-3">
+    <div class="h-[2px] w-8 bg-brand-orange/80"></div>
+    <span class="text-brand-orange/70 text-sm font-bold tracking-[1.92px]">
+      SELECTED PROJECTS
+    </span>
+  </div>
+
+  <div class="w-full flex justify-center px-4">
+    <ProjectCard {...featuredProject} />
+  </div>
+</section>

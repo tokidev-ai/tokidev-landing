@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  color: string;
+}
+
+const { title, description, color } = Astro.props;
+---
+
+<div class="relative flex flex-col items-start pb-8 h-[364px] rounded-[20px] border border-brand-border/10 overflow-hidden group transition-all duration-500 hover:scale-[1.02]">
+  <!-- Glass Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
+  
+  <!-- Illustration Header -->
+  <div class="w-full h-[180px] bg-[#100a1c] relative overflow-hidden group-hover:bg-[#120c22] transition-colors">
+    <div class="absolute left-1/2 -translate-x-1/2 top-[-30px] w-full max-w-[300px] h-[200px] rounded-full blur-[80px]" 
+         style={`background: ${color}22;`}></div>
+    
+    <div class="absolute left-1/2 -translate-x-1/2 top-10 flex gap-2">
+        <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/5 scale-100 group-hover:scale-110 transition-transform duration-700">
+            <div class="w-4 h-4 rounded-full" style={`background: ${color}; opacity: 0.6;`}></div>
+        </div>
+        <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/5 scale-100 group-hover:scale-110 transition-transform duration-700">
+            <div class="w-4 h-4 rounded-full" style={`background: ${color}; opacity: 0.6;`}></div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pt-6 px-7 flex flex-col gap-3 z-10">
+    <h4 class="text-2xl font-bold tracking-[-0.24px] text-brand-text/95">
+      {title}
+    </h4>
+    <p class="text-[14px] font-medium text-brand-text/40 leading-[1.6]">
+      {description}
+    </p>
+  </div>
+</div>

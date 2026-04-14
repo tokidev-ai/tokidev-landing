@@ -1,0 +1,27 @@
+---
+import { ArrowRight } from 'lucide-astro';
+---
+
+<nav class="fixed top-8 left-1/2 -translate-x-1/2 w-[1120px] h-14 bg-brand-glass/65 backdrop-blur-xl border border-brand-border rounded-2xl px-6 flex items-center justify-between z-50">
+  <div class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-orange to-brand-yellow flex items-center justify-center">
+      <span class="text-white font-bold text-lg leading-none">T</span>
+    </div>
+    <span class="text-brand-text font-bold text-lg tracking-tight">tokidev</span>
+  </div>
+
+  <div class="flex items-center gap-1">
+    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
+      <a href={`#${link.toLowerCase()}`} class="px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-brand-text transition-colors rounded-lg">
+        {link}
+      </a>
+    ))}
+  </div>
+
+  <div class="flex items-center">
+    <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-orange to-brand-yellow rounded-full text-[13px] font-semibold text-white hover:opacity-90 transition-opacity">
+      Let's talk
+      <ArrowRight size={14} />
+    </a>
+  </div>
+</nav>

@@ -1,0 +1,75 @@
+---
+import { ArrowLeft, ArrowRight } from 'lucide-astro';
+
+const testimonials = [
+  {
+    text: "Rodrigo’s ability to tackle architectural challenges is unmatched. He doesn’t just write code; he builds foundations that last years.",
+    author: "Daniel Oropeza Soria",
+    role: "CTO @ Innovation Labs",
+    initials: "DS",
+    color: "#ef6c4a"
+  },
+  {
+    text: "Exceptional leadership skills paired with deep technical knowledge. Rodrigo mentored our entire frontend team during the transition to Angular, ensuring a smooth and performant migration.",
+    author: "Pedro Moriel Enriquez",
+    role: "VP Engineering @ TravelConnect",
+    initials: "PM",
+    color: "#7b5ea7"
+  }
+];
+---
+
+<section id="testimonials" class="py-24 flex lg:justify-center px-4">
+  <div class="max-w-[1120px] w-full flex flex-col md:flex-row gap-20 items-center">
+    
+    <!-- Left Column: Title and Nav -->
+    <div class="w-full md:w-[420px] flex flex-col items-start">
+      <span class="text-[36px] text-brand-orange/60 font-bold mb-8">✦</span>
+      <h2 class="text-[48px] font-bold tracking-[-0.96px] text-brand-text/95 leading-[1.17] mb-4">
+        What they <br /> say about <br /> <span class="text-brand-orange">Tokidev</span>
+      </h2>
+      <p class="text-brand-text/35 text-[14px] font-medium leading-[1.57] mb-8 max-w-[320px]">
+        Here's what colleagues and clients had to say about working together.
+      </p>
+
+      <!-- Navigation Arrows -->
+      <div class="flex gap-3">
+        <button class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#2d2550]/30 border border-brand-text/10 text-brand-text/50 hover:text-brand-text hover:bg-[#2d2550]/50 transition-all">
+          <ArrowLeft size={18} />
+        </button>
+        <button class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#2d2550]/30 border border-brand-text/10 text-brand-text/50 hover:text-brand-text hover:bg-[#2d2550]/50 transition-all">
+          <ArrowRight size={18} />
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Quotes -->
+    <div class="flex flex-col gap-8 w-full md:w-[660px]">
+      {testimonials.map((test, index) => (
+        <div class="relative w-full p-6 rounded-[32px] border border-brand-border/10 overflow-hidden transition-all duration-700 hover:scale-[1.01]">
+          <!-- Glass Background -->
+          <div class="absolute inset-0 bg-gradient-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
+          
+          <span class="text-[56px] font-bold leading-none opacity-30 select-none" style={`color: ${test.color};`}>“</span>
+          
+          <p class="text-[18px] font-medium text-brand-text/80 tracking-[-0.09px] leading-[1.55] mb-6 relative">
+            {test.text}
+          </p>
+
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br flex items-center justify-center text-[14px] font-bold" 
+                 style={`background: linear-gradient(135deg, ${test.color}cc, #1a1029); border-color: ${test.color}44;`}>
+              {test.initials}
+            </div>
+            <div class="flex flex-col">
+               <span class="text-[13px] font-bold text-white/85 leading-none mb-1">{test.author}</span>
+               <span class="text-[11px] font-medium leading-none" style={`color: ${test.color}80;`}>{test.role}</span>
+            </div>
+          </div>
+        </div>
+        // Add divider if not last
+        // index < testimonials.length - 1 && <div class="w-[620px] h-[1px] bg-brand-text/5 self-center"></div>
+      ))}
+    </div>
+  </div>
+</section>
