@@ -14,21 +14,21 @@ interface Props {
 const { title, excerpt, date, readTime, category, url, color = "#ef6c4a" } = Astro.props;
 ---
 
-<a href={url} data-category={category} class="group w-full max-w-[357px] mx-auto h-auto min-h-[460px] rounded-[28px] border border-white/[0.08] flex flex-col overflow-hidden bg-gradient-to-b from-[#1a1029]/85 to-[#0d0d23]/95 transition-all duration-500 hover:-translate-y-1 hover:border-brand-orange/20 hover:shadow-2xl hover:shadow-brand-orange/5 blog-card-element">
+<a href={url} data-category={category} class="group w-full max-w-[357px] mx-auto h-auto min-h-[460px] rounded-[28px] border border-white/8 flex flex-col overflow-hidden bg-linear-to-b from-[#1a1029]/85 to-[#0d0d23]/95 transition-all duration-500 hover:-translate-y-1 hover:border-brand-orange/20 hover:shadow-2xl hover:shadow-brand-orange/5 blog-card-element">
   
   <!-- Thumb Area (Visual Gradient Spheres) -->
-  <div class="w-full h-[180px] bg-[#140b20] relative overflow-hidden flex-shrink-0">
+  <div class="w-full h-[180px] bg-[#140b20] relative overflow-hidden shrink-0">
     <div class="absolute -top-[30px] left-[38px] w-[280px] h-[280px] rounded-full blur-[65px] opacity-60 group-hover:opacity-80 transition-opacity duration-500" style={`background-color: ${color};`}></div>
     <div class="absolute top-[18px] left-[88px] w-[180px] h-[180px] rounded-full blur-[45px] bg-white/20 group-hover:scale-110 transition-transform duration-700"></div>
   </div>
 
   <!-- Body Area -->
-  <div class="p-[22px] flex flex-col flex-grow justify-between relative z-10">
+  <div class="p-[22px] flex flex-col grow justify-between relative z-10">
     
     <div class="flex flex-col gap-2.5">
       <!-- Tags -->
       <div class="flex items-center">
-        <div class="px-2.5 py-1.5 rounded-full border border-current/[0.3] bg-current/[0.15] flex items-center justify-center transition-colors" style={`color: ${color};`}>
+        <div class="px-2.5 py-1.5 rounded-full border border-current/30 bg-current/15 flex items-center justify-center transition-colors" style={`color: ${color};`}>
           <span class="text-[10px] font-semibold tracking-[0.8px] leading-none uppercase">
             {category}
           </span>

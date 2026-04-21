@@ -51,22 +51,22 @@ Before we got to the version that ships today, we tore down three prototypes —
   <div class="flex flex-col px-[22px] py-[20px] text-[13.5px] w-full bg-[#0a0712] overflow-x-auto">
     <p class="text-white/35 mb-2 m-0 mt-0">// A minimal cooperative worker contract</p>
     <pre class="m-0 bg-transparent p-0 text-[#e3dfe9] leading-[24px]"><code><span class="text-[#f88b6d]">interface </span><span class="text-[#d7c2ea]">Worker</span> {
-  <span class="text-[#d7c2ea]">id</span>: <span class="text-[#f5a623]">string</span>;
+  <span class="text-[#d7c2ea]">id</span>: <span class="text-brand-yellow">string</span>;
   <span class="text-[#d7c2ea]">claim</span>(task: Task): <span class="text-[#f88b6d]">Promise</span>&lt;Lease&gt;;
-  <span class="text-[#d7c2ea]">report</span>(progress: Progress): <span class="text-[#f88b6d]">Promise</span>&lt;<span class="text-[#f5a623]">'continue'|'yield'</span>&gt;;
+  <span class="text-[#d7c2ea]">report</span>(progress: Progress): <span class="text-[#f88b6d]">Promise</span>&lt;<span class="text-brand-yellow">'continue'|'yield'</span>&gt;;
   <span class="text-[#d7c2ea]">handoff</span>(to: Worker, state: OpaqueState): <span class="text-[#f88b6d]">Promise</span>&lt;<span class="text-[#f88b6d]">void</span>&gt;;
 }
     
 <span class="text-white/35">// The coordinator never owns state —</span>
 <span class="text-white/35">// it only witnesses it.</span>
 <span class="text-[#f88b6d]">const </span><span class="text-[#d7c2ea]">lease</span> = <span class="text-[#f88b6d]">await</span> worker.<span class="text-[#d7c2ea]">claim</span>(task);
-<span class="text-[#f88b6d]">if</span> (lease.deadlineMs &lt; <span class="text-[#ef6c4a]">500</span>) worker.<span class="text-[#d7c2ea]">handoff</span>(nextPeer, lease.state);</code></pre>
+<span class="text-[#f88b6d]">if</span> (lease.deadlineMs &lt; <span class="text-brand-orange">500</span>) worker.<span class="text-[#d7c2ea]">handoff</span>(nextPeer, lease.state);</code></pre>
   </div>
 </div>
 
 The key insight — which we only hit on iteration #3 — was that the coordinator shouldn't own state. It should only witness it. That flipped the entire dependency graph and let us lose the central store.
 
-<div class="bg-gradient-to-r border-[#ef6c4a] border-l-[3px] border-solid flex from-[#ef6c4a]/10 items-start px-6 py-6 md:px-[40px] md:py-[32px] rounded-br-[16px] rounded-tr-[16px] to-transparent w-full max-w-[720px] my-10 md:my-12">
+<div class="bg-linear-to-r border-brand-orange border-l-[3px] border-solid flex from-brand-orange/10 items-start px-6 py-6 md:px-[40px] md:py-[32px] rounded-br-[16px] rounded-tr-[16px] to-transparent w-full max-w-[720px] my-10 md:my-12">
   <p class="font-medium leading-[1.4] text-[20px] md:text-[26px] text-white tracking-[-0.26px] m-0">
     Most distributed problems aren't about scale. They're about coordination under uncertainty.
   </p>

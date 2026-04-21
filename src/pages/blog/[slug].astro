@@ -140,12 +140,12 @@ const relatedPosts = Object.values(allPostsParams)
               </div>
               
               <!-- Title String (We simulate the gradient on the whole title for now) -->
-              <h1 class="text-[36px] sm:text-[48px] md:text-[60px] font-bold tracking-[-1.5px] leading-[1.05] bg-gradient-to-r from-white via-white via-55% to-brand-orange bg-clip-text text-transparent">
+              <h1 class="text-[36px] sm:text-[48px] md:text-[60px] font-bold tracking-[-1.5px] leading-[1.05] bg-linear-to-r from-white via-white via-55% to-brand-orange bg-clip-text text-transparent">
                 {title}
               </h1>
               
               <!-- Excerpt -->
-              <p class="text-[18px] md:text-[20px] font-normal leading-[1.5] text-brand-text/80 max-w-[800px]">
+              <p class="text-[18px] md:text-[20px] font-normal leading-normal text-brand-text/80 max-w-[800px]">
                 {excerpt}
               </p>
 
@@ -171,7 +171,7 @@ const relatedPosts = Object.values(allPostsParams)
             <!-- Hero Visual (Dynamic based on Color) -->
             <div class="w-full max-w-[1120px] h-[250px] md:h-[420px] rounded-[32px] mb-16 overflow-hidden relative flex items-center justify-center" style={`background: linear-gradient(180deg, #1A1029 0%, #0D0D23 100%);`}>
               <div class="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] rounded-full blur-[80px]" style={`background-color: ${color}40;`}></div>
-              <div class="absolute w-[150px] h-[150px] bg-white/20 rounded-full blur-[40px]"></div>
+              <div class="absolute w-[150px] h-[150px] bg-white/20 rounded-full blur-2xl"></div>
             </div>
 
             <!-- Markdown Content Body -->
