@@ -19,16 +19,16 @@ const testimonials = [
 ];
 ---
 
-<section id="testimonials" class="py-24 flex lg:justify-center px-4">
-  <div class="max-w-[1120px] w-full flex flex-col md:flex-row gap-20 items-center">
+<section id="testimonials" class="py-16 lg:py-24 flex justify-center">
+  <div class="w-[92%] max-w-[1120px] flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
     
     <!-- Left Column: Title and Nav -->
-    <div class="w-full md:w-[420px] flex flex-col items-start">
-      <span class="text-[36px] text-brand-orange/60 font-bold mb-8">✦</span>
-      <h2 class="text-[48px] font-bold tracking-[-0.96px] text-brand-text/95 leading-[1.17] mb-4">
-        What they <br /> say about <br /> <span class="text-brand-orange">Tokidev</span>
+    <div class="w-full lg:w-[420px] flex flex-col items-center lg:items-start text-center lg:text-left">
+      <span class="text-[36px] text-brand-orange/60 font-bold mb-6 lg:mb-8">✦</span>
+      <h2 class="text-[36px] md:text-[48px] font-bold tracking-[-0.96px] text-brand-text/95 leading-[1.17] mb-4">
+        What they <br class="hidden lg:block" /> say about <br class="hidden lg:block" /> <span class="text-brand-orange">Tokidev</span>
       </h2>
-      <p class="text-brand-text/35 text-[14px] font-medium leading-[1.57] mb-8 max-w-[320px]">
+      <p class="text-brand-text/35 text-[14px] font-medium leading-[1.57] mb-8 max-w-[420px] lg:max-w-[320px]">
         Here's what colleagues and clients had to say about working together.
       </p>
 
@@ -44,15 +44,15 @@ const testimonials = [
     </div>
 
     <!-- Right Column: Quotes -->
-    <div class="flex flex-col gap-8 w-full md:w-[660px]">
-      {testimonials.map((test, index) => (
-        <div class="relative w-full p-6 rounded-[32px] border border-brand-border/10 overflow-hidden transition-all duration-700 hover:scale-[1.01]">
+    <div class="flex flex-col gap-6 lg:gap-8 w-full lg:w-[660px]">
+      {testimonials.map((test) => (
+        <div class="relative w-full p-6 lg:p-8 rounded-[32px] border border-brand-border/10 overflow-hidden transition-all duration-700 hover:scale-[1.01]">
           <!-- Glass Background -->
           <div class="absolute inset-0 bg-linear-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
           
-          <span class="text-[56px] font-bold leading-none opacity-30 select-none" style={`color: ${test.color};`}>“</span>
+          <span class="text-[48px] lg:text-[56px] font-bold leading-none opacity-30 select-none" style={`color: ${test.color};`}>“</span>
           
-          <p class="text-[18px] font-medium text-brand-text/80 tracking-[-0.09px] leading-[1.55] mb-6 relative">
+          <p class="text-[17px] lg:text-[18px] font-medium text-brand-text/80 tracking-[-0.09px] leading-[1.55] mb-6 relative">
             {test.text}
           </p>
 
@@ -62,13 +62,11 @@ const testimonials = [
               {test.initials}
             </div>
             <div class="flex flex-col">
-               <span class="text-[13px] font-bold text-white/85 leading-none mb-1">{test.author}</span>
-               <span class="text-[11px] font-medium leading-none" style={`color: ${test.color}80;`}>{test.role}</span>
+               <span class="text-[13px] font-bold text-white/85 leading-none mb-1 text-left">{test.author}</span>
+               <span class="text-[11px] font-medium leading-none text-left" style={`color: ${test.color}80;`}>{test.role}</span>
             </div>
           </div>
         </div>
-        // Add divider if not last
-        // index < testimonials.length - 1 && <div class="w-[620px] h-px bg-brand-text/5 self-center"></div>
       ))}
     </div>
   </div>

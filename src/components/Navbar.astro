@@ -2,7 +2,7 @@
 import { ArrowRight, Menu, X } from 'lucide-astro';
 ---
 
-<nav class="fixed top-5 md:top-8 left-1/2 -translate-x-1/2 w-[92%] max-w-[1120px] h-14 md:h-16 bg-brand-glass/65 backdrop-blur-xl border border-brand-border rounded-2xl px-5 md:px-6 flex items-center justify-between z-50">
+<nav class="fixed top-5 lg:top-8 left-1/2 -translate-x-1/2 w-[92%] max-w-[1120px] h-14 lg:h-16 bg-brand-glass/65 backdrop-blur-xl border border-brand-border rounded-2xl px-5 lg:px-6 flex items-center justify-between z-50 transition-all duration-300">
   <div class="flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg bg-linear-to-br from-brand-orange to-brand-yellow flex items-center justify-center">
       <span class="text-white font-bold text-lg leading-none">T</span>
@@ -11,7 +11,7 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
   </div>
 
   <!-- Desktop Links -->
-  <div class="hidden md:flex items-center gap-1">
+  <div class="hidden lg:flex items-center gap-1">
     {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
       <a href={`#${link.toLowerCase()}`} class="px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-brand-text transition-colors rounded-lg">
         {link}
@@ -20,22 +20,22 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
   </div>
 
   <!-- Desktop CTA -->
-  <div class="hidden md:flex items-center">
+  <div class="hidden lg:flex items-center">
     <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-brand-orange to-brand-yellow rounded-full text-[13px] font-semibold text-white hover:opacity-90 transition-opacity">
       Let's talk
       <ArrowRight size={14} />
     </a>
   </div>
 
-  <!-- Mobile Toggle -->
-  <button id="menu-toggle" class="md:hidden text-brand-text/70 focus:outline-none transition-colors hover:text-brand-orange">
+  <!-- Mobile Toggle (Visible until LG) -->
+  <button id="menu-toggle" class="lg:hidden text-brand-text/70 focus:outline-none transition-colors hover:text-brand-orange">
     <Menu size={24} id="menu-icon" />
     <X size={24} id="close-icon" class="hidden" />
   </button>
 </nav>
 
-<!-- Mobile Overlay -->
-<div id="mobile-menu" class="fixed inset-0 bg-brand-bg/95 backdrop-blur-2xl z-[45] hidden flex flex-col items-center justify-center gap-8 md:hidden">
+<!-- Mobile Overlay (Visible until LG) -->
+<div id="mobile-menu" class="fixed inset-0 bg-brand-bg/95 backdrop-blur-2xl z-[45] hidden flex flex-col items-center justify-center gap-8 lg:hidden">
   <div class="flex flex-col items-center gap-6">
     {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
       <a href={`#${link.toLowerCase()}`} class="mobile-link text-[24px] font-bold text-brand-text/60 hover:text-brand-orange transition-colors">

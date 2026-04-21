@@ -27,24 +27,24 @@ const experiences = [
 ];
 ---
 
-<section id="experience" class="py-20 flex justify-center">
-  <div class="max-w-[1120px] w-full flex flex-col items-center">
+<section id="experience" class="py-12 md:py-20 flex justify-center">
+  <div class="w-[92%] max-w-[1120px] flex flex-col items-center">
     
     <!-- Section Header -->
-    <div class="w-full flex flex-col items-end mb-16 px-4">
+    <div class="w-full flex flex-col items-start lg:items-end mb-12 md:mb-16">
       <div class="flex items-center gap-3 mb-2">
         <div class="h-px w-10 bg-linear-to-r from-brand-orange to-transparent"></div>
         <span class="text-brand-orange text-sm font-semibold uppercase tracking-[4px]">
           EXPERIENCE
         </span>
       </div>
-      <h2 class="text-[38px] font-bold tracking-[-0.76px] bg-linear-to-r from-brand-text via-brand-text via-55% to-brand-yellow bg-clip-text text-transparent">
+      <h2 class="text-[32px] md:text-[38px] font-bold tracking-[-0.76px] bg-linear-to-r from-brand-text via-brand-text via-55% to-brand-yellow bg-clip-text text-transparent">
         Where I've shipped.
       </h2>
     </div>
 
     <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
       {experiences.map(exp => (
         <ExperienceCard {...exp} />
       ))}
