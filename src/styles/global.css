@@ -15,7 +15,13 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    /* html es el único dueño del scroll vertical */
+  }
   body {
+    /* body no debe generar su propio scroll context */
+    overflow: visible;
     @apply bg-brand-bg text-brand-text font-inter antialiased;
   }
 }
@@ -36,4 +42,57 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3d3560;
+}
+
+/* ─── Estilos de tipografía para el cuerpo del artículo ─── */
+/* Aplica a los elementos HTML generados por <Content /> de Astro */
+.article-prose {
+  color: var(--color-brand-text);
+  font-size: 17px;
+  line-height: 29px;
+  opacity: 0.85;
+}
+.article-prose p {
+  margin-bottom: 1.5rem;
+}
+.article-prose h2 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.48px;
+  line-height: 1.25;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  .article-prose h2 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}
+.article-prose ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+.article-prose li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+}
+.article-prose li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-brand-yellow);
+  border-radius: 50%;
+}
+.article-prose strong {
+  color: #ffffff;
+  font-weight: 600;
+  opacity: 1;
 }

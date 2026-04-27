@@ -11,33 +11,23 @@ import Footer from '../components/Footer.astro';
 import BackgroundGlows from '../components/BackgroundGlows.astro';
 ---
 
-<Layout title="Tokidev | Senior Fullstack Engineer">
-	<div class="relative w-full overflow-x-hidden">
-		<!-- Background Glows Layer (Full Width) -->
-		<BackgroundGlows />
-		
-		<div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
-			<Navbar />
-			
-			<main class="flex flex-col items-center w-full relative z-10">
-				<Hero />
-				<Experience />
-				<FeaturedProject />
-				<Community />
-				<Testimonials />
-				<CTA />
-			</main>
+<Layout
+  title="Tokidev | Senior Fullstack Engineer"
+  description="Senior Fullstack Engineer specializing in scalable architectures, clean code, and shipping products that work."
+>
+  <div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
+    <BackgroundGlows />
+    <Navbar />
 
-			<Footer />
-		</div>
-	</div>
+    <main class="flex flex-col items-center w-full relative z-10">
+      <Hero />
+      <Experience />
+      <FeaturedProject />
+      <Community />
+      <Testimonials />
+      <CTA />
+    </main>
+
+    <Footer />
+  </div>
 </Layout>
-
-<style is:global>
-	/* Ensure no horizontal scroll on any device */
-	html, body {
-		overflow-x: hidden;
-		width: 100%;
-		position: relative;
-	}
-</style>

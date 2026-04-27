@@ -1,218 +1,204 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import BackgroundGlows from '../components/BackgroundGlows.astro';
 import BlogCard from '../components/BlogCard.astro';
 import FeaturedBlogPost from '../components/FeaturedBlogPost.astro';
 import CTABlog from '../components/CTABlog.astro';
-import '../styles/global.css';
 
-// Fetch all markdown posts from the src/posts directory using Vite's eager glob
+// Obtiene todos los posts de markdown con Vite's eager glob
 const posts = Object.values(import.meta.glob('../posts/*.md', { eager: true })) as any[];
+const sortedPosts = [...posts].reverse();
 
-// Sort posts by date (assuming YYYY-MM-DD or parseable dates, we'll keep it simple for mock data)
-// In a real app you might parse dates via Data API.
-const sortedPosts = posts.reverse(); 
+// El post destacado es siempre el primero (post-1)
+const featuredPost = sortedPosts.find((p) => p.url?.includes('post-1')) ?? sortedPosts[0];
+const gridPosts = sortedPosts.filter((p) => p !== featuredPost);
+
+// Categorías únicas extraídas dinámicamente de los posts
+const categories = ['All', ...new Set(sortedPosts.map((p) => p.frontmatter.category as string))];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Blog - Tokidev | Senior Fullstack Engineer</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-            
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: #04020a;
-                color: #ffffff;
-            }
-        </style>
-	</head>
-	<body class="bg-brand-bg text-brand-text antialiased selection:bg-brand-orange/30 overflow-x-hidden">
-		<div class="relative w-full">
-			<!-- Background Glows Layer (Full Width) clipped to content height -->
-            <div class="absolute inset-0 overflow-hidden pointer-events-none -z-50">
-			    <BackgroundGlows />
-            </div>
-			
-			<div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
-				<Navbar />
-				
-				<main class="flex flex-col items-center w-full relative z-10 pt-32 lg:pt-40">
-                    
-                    <!-- Blog Hero Section -->
-                    <section class="w-full flex justify-center mb-14 lg:mb-16">
-                        <div class="w-[92%] max-w-[1120px] flex flex-col items-start text-left">
-                            <div class="flex items-center gap-2 mb-6">
-                                <div class="w-6 h-px bg-brand-orange"></div>
-                                <span class="text-brand-orange text-[11px] font-semibold tracking-[1.54px] uppercase">
-                                    The Blog  ★
-                                </span>
-                            </div>
-                            
-                            <h1 class="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-[-1.28px] leading-[1.05] bg-linear-to-r from-white via-white via-55% to-brand-orange bg-clip-text text-transparent mb-5 max-w-[800px]">
-                                Notes from the trenches<br />of building real software.
-                            </h1>
-                            <p class="text-brand-text/80 text-[16px] md:text-[17px] leading-[1.6] max-w-[620px]">
-                                Essays, deep-dives, and postmortems on engineering, distributed systems, and the craft of shipping products that actually work.
-                            </p>
-                        </div>
-                    </section>
+<Layout
+  title="Blog - Tokidev | Senior Fullstack Engineer"
+  description="Essays, deep-dives, and postmortems on engineering, distributed systems, and the craft of shipping products that actually work."
+>
+  <!-- Wrapper principal con contexto de posicionamiento para los glows -->
+  <div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
+    <!-- Capa de fondo contenida dentro del wrapper -->
+    <BackgroundGlows />
+    <Navbar />
 
-                    <!-- Filters & Search -->
-                    <section class="w-full flex justify-center mb-16">
-                        <div class="w-[92%] max-w-[1120px] flex flex-col lg:flex-row items-center justify-between gap-6">
-                            <!-- Search Input -->
-                            <div class="w-full lg:w-[420px] h-[52px] rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center px-5 gap-3">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                <input type="text" id="blog-search" placeholder="Search articles, topics, tags..." class="bg-transparent border-none outline-hidden text-[14px] text-white/50 placeholder:text-white/50 w-full font-medium" />
-                            </div>
+    <main class="flex flex-col items-center w-full relative z-10 pt-32 lg:pt-40">
 
-                            <!-- Filter Chips -->
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <button class="px-4 py-2 rounded-full bg-brand-orange/15 border border-brand-orange/40 flex items-center gap-2 text-[12px] font-medium text-white transition-colors hover:bg-brand-orange/20">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-                                    All
-                                </button>
-                                {['Engineering', 'Distributed Systems', 'Career', 'Open Source', 'Thoughts'].map(tag => (
-                                    <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[12px] font-medium text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors">
-                                        {tag}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
+      <!-- Blog Hero -->
+      <section class="w-full flex justify-center mb-14 lg:mb-16">
+        <div class="w-[92%] max-w-[1120px] flex flex-col items-start">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="w-6 h-px bg-brand-orange"></div>
+            <span class="text-brand-orange text-[11px] font-semibold tracking-[1.54px] uppercase">The Blog ★</span>
+          </div>
+          <h1 class="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight leading-[1.05] bg-linear-to-r from-white via-white via-55% to-brand-orange bg-clip-text text-transparent mb-5 max-w-[800px]">
+            Notes from the trenches<br />of building real software.
+          </h1>
+          <p class="text-brand-text/80 text-base md:text-[17px] leading-relaxed max-w-[620px]">
+            Essays, deep-dives, and postmortems on engineering, distributed systems, and the craft of shipping products that actually work.
+          </p>
+        </div>
+      </section>
 
-                    <!-- Featured Post -->
-                    <section class="w-full flex justify-center mb-16 lg:mb-24">
-                        <FeaturedBlogPost 
-                            title="Designing solveOS: a distributed problem-solving runtime"
-                            excerpt="How we built a coordination layer for ephemeral workers that scales horizontally without the operational overhead of Kubernetes, and the lessons we learned tearing down the first three prototypes."
-                            date="April 10, 2026"
-                            author="Tokidev"
-                            readTime="12 MIN READ"
-                            category="Distributed Systems"
-                            url="/blog/post-1"
-                        />
-                    </section>
+      <!-- Filtros y búsqueda -->
+      <section class="w-full flex justify-center mb-16">
+        <div class="w-[92%] max-w-[1120px] flex flex-col lg:flex-row items-center justify-between gap-6">
+          <!-- Buscador -->
+          <div class="w-full lg:w-[420px] h-[52px] rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center px-5 gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/50 shrink-0">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              id="blog-search"
+              placeholder="Search articles, topics, tags..."
+              class="bg-transparent border-none outline-none text-sm text-white/50 placeholder:text-white/50 w-full font-medium"
+            />
+          </div>
 
-                    <!-- Blog Grid Section -->
-                    <section class="w-full flex justify-center pb-24 lg:pb-32">
-                        <div class="w-[92%] max-w-[1120px]">
-                            <!-- Eyebrow -->
-                            <div class="flex items-center gap-2 mb-8">
-                                <div class="w-6 h-px bg-brand-orange"></div>
-                                <span class="text-brand-orange text-[11px] font-semibold tracking-[1.54px] uppercase">
-                                    Latest Posts  ★
-                                </span>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {sortedPosts.map((post) => (
-                                    <BlogCard 
-                                        title={post.frontmatter.title}
-                                        excerpt={post.frontmatter.excerpt}
-                                        date={post.frontmatter.date}
-                                        readTime={post.frontmatter.readTime}
-                                        category={post.frontmatter.category}
-                                        url={post.url}
-                                        color={post.frontmatter.color}
-                                    />
-                                ))}
-                            </div>
+          <!-- Chips de filtro (generados dinámicamente) -->
+          <div class="flex flex-wrap items-center gap-2.5" id="filter-chips">
+            {categories.map((cat) => (
+              <button
+                class:list={[
+                  'filter-btn px-4 py-2 rounded-full text-xs font-medium transition-colors',
+                  cat === 'All'
+                    ? 'bg-brand-orange/15 border border-brand-orange/40 text-white flex items-center gap-2'
+                    : 'bg-white/5 border border-white/10 text-brand-text/80 hover:bg-white/10 hover:text-white',
+                ]}
+                data-filter={cat}
+              >
+                {cat === 'All' && <span class="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                            <!-- Pagination -->
-                            <div class="flex items-center justify-center gap-2 mt-16">
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">‹</button>
-                                <button class="w-10 h-10 rounded-full bg-linear-to-r from-brand-orange to-[#f4845c] flex items-center justify-center text-white text-[13px] font-medium shadow-[0_4px_14px_rgba(239,108,74,0.35)]">1</button>
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">2</button>
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">3</button>
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">…</button>
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">7</button>
-                                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors text-[13px] font-medium">›</button>
-                            </div>
-                        </div>
-                    </section>
+      <!-- Post destacado -->
+      {featuredPost && (
+        <section class="w-full flex justify-center mb-16 lg:mb-24">
+          <FeaturedBlogPost
+            title={featuredPost.frontmatter.title}
+            excerpt={featuredPost.frontmatter.excerpt}
+            date={featuredPost.frontmatter.date}
+            author="Tokidev"
+            readTime={featuredPost.frontmatter.readTime}
+            category={featuredPost.frontmatter.category}
+            url="/blog/post-1"
+          />
+        </section>
+      )}
 
-                    <CTABlog />
-				</main>
+      <!-- Grid de posts -->
+      <section class="w-full flex justify-center pb-24 lg:pb-32">
+        <div class="w-[92%] max-w-[1120px]">
+          <div class="flex items-center gap-2 mb-8">
+            <div class="w-6 h-px bg-brand-orange"></div>
+            <span class="text-brand-orange text-[11px] font-semibold tracking-[1.54px] uppercase">Latest Posts ★</span>
+          </div>
 
-				<Footer />
-			</div>
-		</div>
+          <!-- Contenedor del grid filtrable -->
+          <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gridPosts.map((post) => (
+              <BlogCard
+                title={post.frontmatter.title}
+                excerpt={post.frontmatter.excerpt}
+                date={post.frontmatter.date}
+                readTime={post.frontmatter.readTime}
+                category={post.frontmatter.category}
+                url={post.url}
+                color={post.frontmatter.color}
+              />
+            ))}
+          </div>
 
-        <!-- Client-side filtering script -->
-        <script>
-            const searchInput = document.getElementById('blog-search');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const cards = document.querySelectorAll('.blog-card-element') as NodeListOf<HTMLElement>;
+          <!-- Estado vacío al filtrar -->
+          <div id="no-results" class="hidden w-full py-20 flex flex-col items-center justify-center gap-4 text-center">
+            <span class="text-5xl">🔍</span>
+            <p class="text-brand-text/50 text-base font-medium">No articles match your search.</p>
+          </div>
+        </div>
+      </section>
 
-            let currentSearch = '';
-            let currentCategory = 'All';
+      <CTABlog />
+    </main>
 
-            function filterPosts() {
-                cards.forEach((card) => {
-                    const titleEl = card.querySelector('h3');
-                    const excerptEl = card.querySelector('p');
-                    
-                    const titleText = titleEl ? titleEl.textContent.trim().toLowerCase() : '';
-                    const excerptText = excerptEl ? excerptEl.textContent.trim().toLowerCase() : '';
-                    const category = card.getAttribute('data-category');
+    <Footer />
+  </div>
+</Layout>
 
-                    const matchesSearch = currentSearch === '' || 
-                                          titleText.includes(currentSearch) || 
-                                          excerptText.includes(currentSearch);
-                    
-                    const matchesCategory = currentCategory === 'All' || category === currentCategory;
+<script>
+  const searchInput = document.getElementById('blog-search') as HTMLInputElement;
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.blog-card-element');
+  const noResults = document.getElementById('no-results');
 
-                    if (matchesSearch && matchesCategory) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
+  let currentSearch = '';
+  let currentCategory = 'All';
 
-            // Search Input Event
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
-                    filterPosts();
-                });
-            }
+  function filterPosts() {
+    let visibleCount = 0;
 
-            // Filter Buttons Event
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const target = e.currentTarget as HTMLElement;
-                    const filterVal = target.getAttribute('data-filter');
-                    currentCategory = filterVal || 'All';
+    cards.forEach((card) => {
+      const title = card.querySelector('h3')?.textContent?.toLowerCase() ?? '';
+      const excerpt = card.querySelector('p')?.textContent?.toLowerCase() ?? '';
+      const category = card.getAttribute('data-category') ?? '';
 
-                    // Update button active states
-                    filterBtns.forEach(b => {
-                        if (b === target) {
-                            b.className = "filter-btn px-4 py-2 rounded-full bg-brand-orange/15 border border-brand-orange/40 flex items-center gap-2 text-[12px] font-medium text-white transition-colors hover:bg-brand-orange/20";
-                            // Add inner dot if it doesn't exist
-                            if (!b.querySelector('span')) {
-                                b.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-white"></span> ${b.textContent.trim()}`;
-                            }
-                        } else {
-                            b.className = "filter-btn px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[12px] font-medium text-brand-text/80 hover:bg-white/10 hover:text-white transition-colors";
-                            // Remove dot if it exists
-                            const dot = b.querySelector('span');
-                            if (dot) {
-                                // Extract just the text part (the category name) without the dot
-                                b.textContent = b.textContent.trim();
-                            }
-                        }
-                    });
-                    
-                    filterPosts();
-                });
-            });
-        </script>
-	</body>
-</html>
+      const matchesSearch =
+        currentSearch === '' ||
+        title.includes(currentSearch) ||
+        excerpt.includes(currentSearch);
+
+      const matchesCategory = currentCategory === 'All' || category === currentCategory;
+
+      const visible = matchesSearch && matchesCategory;
+      card.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    if (noResults) {
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+  }
+
+  // Búsqueda en tiempo real
+  searchInput?.addEventListener('input', (e) => {
+    currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    filterPosts();
+  });
+
+  // Filtro por categoría
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentCategory = btn.getAttribute('data-filter') ?? 'All';
+
+      // Actualiza estilos de chips activos/inactivos
+      filterBtns.forEach((b) => {
+        const isActive = b === btn;
+        b.className = isActive
+          ? 'filter-btn px-4 py-2 rounded-full text-xs font-medium transition-colors bg-brand-orange/15 border border-brand-orange/40 text-white flex items-center gap-2'
+          : 'filter-btn px-4 py-2 rounded-full text-xs font-medium transition-colors bg-white/5 border border-white/10 text-brand-text/80 hover:bg-white/10 hover:text-white';
+
+        // Dot indicator solo en el activo
+        const existingDot = b.querySelector('span');
+        if (isActive && !existingDot) {
+          b.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-white"></span> ${b.textContent?.trim()}`;
+        } else if (!isActive && existingDot) {
+          b.textContent = b.textContent?.trim() ?? '';
+        }
+      });
+
+      filterPosts();
+    });
+  });
+</script>
