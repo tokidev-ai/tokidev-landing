@@ -17,11 +17,8 @@
 @layer base {
   html {
     overflow-x: hidden;
-    /* html es el único dueño del scroll vertical */
   }
   body {
-    /* body no debe generar su propio scroll context */
-    overflow: visible;
     @apply bg-brand-bg text-brand-text font-inter antialiased;
   }
 }

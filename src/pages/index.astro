@@ -15,8 +15,9 @@ import BackgroundGlows from '../components/BackgroundGlows.astro';
   title="Tokidev | Senior Fullstack Engineer"
   description="Senior Fullstack Engineer specializing in scalable architectures, clean code, and shipping products that work."
 >
-  <div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
-    <BackgroundGlows />
+  <BackgroundGlows slot="background" />
+
+  <div class="relative w-full max-w-[1440px] mx-auto min-h-screen overflow-x-hidden">
     <Navbar />
 
     <main class="flex flex-col items-center w-full relative z-10">

@@ -24,7 +24,16 @@ import '../styles/global.css';
     <!-- Slot para meta tags o estilos adicionales por página -->
     <slot name="head" />
   </head>
-  <body class="bg-brand-bg text-brand-text antialiased selection:bg-brand-orange/30 overflow-x-hidden">
-    <slot />
+  <body class="bg-brand-bg text-brand-text antialiased selection:bg-brand-orange/30">
+    <!-- Wrapper: posiciona los glows relativos al contenido real, evitando scroll extra -->
+    <div class="relative overflow-hidden">
+      <slot name="background" />
+      <slot />
+    </div>
   </body>
 </html>
+
+<script>
+  import { initAnimations } from '../scripts/animations';
+  initAnimations();
+</script>

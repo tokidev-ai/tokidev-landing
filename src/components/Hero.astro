@@ -6,21 +6,21 @@ import { ArrowRight, Play } from 'lucide-astro';
   <div class="w-[92%] max-w-[1120px] flex flex-col lg:flex-row items-center gap-12 z-10">
     <!-- Left Column -->
     <div class="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 lg:gap-7 w-full lg:w-[620px]">
-      <div class="px-4 py-2 bg-white/7 backdrop-blur-md border border-white/12 rounded-full overflow-hidden inline-block">
+      <div data-hero="badge" class="px-4 py-2 bg-white/7 backdrop-blur-md border border-white/12 rounded-full overflow-hidden inline-block">
         <span class="text-[10px] lg:text-[11px] font-semibold text-[#cce0ff] uppercase tracking-[1.65px]">
           SENIOR FULLSTACK ENGINEER ★
         </span>
       </div>
 
-      <h1 class="text-[34px] sm:text-[40px] lg:text-[60px] font-medium leading-[1.1] lg:leading-[1.07] tracking-[-1.2px] lg:tracking-[-1.8px] bg-linear-to-b from-white via-white via-50% to-brand-orange bg-clip-text text-transparent">
+      <h1 data-hero="title" class="text-[34px] sm:text-[40px] lg:text-[60px] font-medium leading-[1.1] lg:leading-[1.07] tracking-[-1.2px] lg:tracking-[-1.8px] bg-linear-to-b from-white via-white via-50% to-brand-orange bg-clip-text text-transparent">
         Your next product deserves an <span class="font-bold">engineer</span>, not just a <span class="font-bold">developer</span>.
       </h1>
 
-      <div class="text-[#c6cad0] text-[15px] sm:text-[16px] lg:text-lg leading-[1.6] max-w-[540px]">
+      <div data-hero="desc" class="text-[#c6cad0] text-[15px] sm:text-[16px] lg:text-lg leading-[1.6] max-w-[540px]">
         <p>With over a decade of experience, I specialize in bridging complex backend architectures and high-performance frontend interfaces. My approach is rooted in clean code and developer experience.</p>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center gap-4 mt-2 w-full sm:w-auto">
+      <div data-hero="buttons" class="flex flex-col sm:flex-row items-center gap-4 mt-2 w-full sm:w-auto">
         <a href="#projects" class="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 lg:py-[18px] bg-white rounded-full text-[15px] font-semibold text-[#0f121a] hover:bg-zinc-200 transition-colors">
           View Portfolio
           <ArrowRight size={18} />
@@ -33,7 +33,7 @@ import { ArrowRight, Play } from 'lucide-astro';
     </div>
 
     <!-- Right Column (Glass Visual) -->
-    <div class="shrink-0 w-full max-w-[340px] sm:max-w-[400px] lg:w-[452px] h-[320px] sm:h-[380px] lg:h-[416px] rounded-[40px] lg:rounded-[56px] border-2 lg:border-[3px] border-white/40 bg-linear-to-br from-white/36 to-white/5 backdrop-blur-2xl relative overflow-hidden group">
+    <div data-hero="card" class="shrink-0 w-full max-w-[340px] sm:max-w-[400px] lg:w-[452px] h-[320px] sm:h-[380px] lg:h-[416px] rounded-[40px] lg:rounded-[56px] border-2 lg:border-[3px] border-white/40 bg-linear-to-br from-white/36 to-white/5 backdrop-blur-2xl relative overflow-hidden group">
         <!-- Visual decoration inside glass -->
         <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-orange/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
         <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-purple/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"></div>

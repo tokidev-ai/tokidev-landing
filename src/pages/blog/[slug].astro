@@ -32,9 +32,10 @@ const relatedPosts = Object.entries(allPosts)
 ---
 
 <Layout title={`${title} - Tokidev Blog`} description={excerpt}>
-  <!-- Wrapper principal con contexto de posicionamiento para los glows -->
+  <!-- Glows extendidos para artículos largos -->
+  <BackgroundGlowsArticle slot="background" />
+
   <div class="relative w-full max-w-[1440px] mx-auto min-h-screen pt-28">
-    <BackgroundGlowsArticle />
     <Navbar />
 
     <main class="w-full flex flex-col items-center pb-24">

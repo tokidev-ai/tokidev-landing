@@ -23,10 +23,10 @@ const categories = ['All', ...new Set(sortedPosts.map((p) => p.frontmatter.categ
   title="Blog - Tokidev | Senior Fullstack Engineer"
   description="Essays, deep-dives, and postmortems on engineering, distributed systems, and the craft of shipping products that actually work."
 >
-  <!-- Wrapper principal con contexto de posicionamiento para los glows -->
+  <!-- Capa de fondo -->
+  <BackgroundGlows slot="background" />
+
   <div class="relative w-full max-w-[1440px] mx-auto min-h-screen">
-    <!-- Capa de fondo contenida dentro del wrapper -->
-    <BackgroundGlows />
     <Navbar />
 
     <main class="flex flex-col items-center w-full relative z-10 pt-32 lg:pt-40">
