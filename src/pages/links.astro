@@ -1,0 +1,150 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BackgroundGlows from "../components/BackgroundGlows.astro";
+import { Linkedin, Instagram, Github, Mail, ArrowUpRight } from "lucide-astro";
+
+// Obtener últimos posts para el carrusel
+const posts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true }),
+) as any[];
+const latestPosts = [...posts].reverse().slice(0, 3);
+
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    url: "https://linkedin.com/in/pedroanze",
+  },
+  { name: "Instagram", icon: Instagram, url: "https://instagram.com/tokidev" },
+  { name: "GitHub", icon: Github, url: "https://github.com/pedroanze" },
+  { name: "Email", icon: Mail, url: "mailto:hola@tokidev.com" },
+];
+---
+
+<Layout
+  title="Links | Tokidev"
+  description="Senior Engineer • AI powered. Social links and more."
+>
+  <BackgroundGlows slot="background" />
+
+  <main
+    class="w-full min-h-screen flex flex-col items-center pt-24 pb-12 overflow-x-hidden relative z-10"
+  >
+    <div class="w-[92%] max-w-[440px] flex flex-col items-center gap-10">
+      <!-- Profile Header -->
+      <div class="flex flex-col items-center text-center gap-5">
+        <!-- Avatar con anillo gradiente -->
+        <div
+          class="w-32 h-32 rounded-full p-[2.5px] bg-linear-to-br from-brand-orange via-brand-purple to-brand-yellow hover:scale-105 transition-transform duration-500"
+        >
+          <div
+            class="w-full h-full rounded-full bg-brand-bg flex items-center justify-center overflow-hidden border-[3px] border-brand-bg relative group"
+          >
+            <img
+              src="https://res.cloudinary.com/dlppldpo1/image/upload/q_auto/f_auto/v1777564118/toki-photo_t8kcui.jpg"
+              alt="Rodrigo Torrico"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <span class="hidden text-2xl font-bold text-white tracking-widest"
+              >RT</span
+            >
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5 items-center">
+          <h1
+            class="text-[28px] sm:text-[32px] font-bold text-white tracking-tight leading-none"
+          >
+            Rodrigo Torrico
+          </h1>
+          <p class="text-brand-text/50 font-semibold text-[14px] tracking-wide">
+            @tokidev.ia
+          </p>
+          <p
+            class="text-brand-text/80 mt-2 text-[15px] leading-relaxed max-w-[320px]"
+          >
+            Senior Engineer • AI powered
+          </p>
+        </div>
+      </div>
+
+      <!-- Links Stack -->
+      <div class="w-full flex flex-col gap-3.5">
+        <a
+          href="/"
+          class="w-full flex items-center justify-center py-[18px] px-6 rounded-full bg-white text-[#0f121a] text-[15px] font-semibold hover:bg-zinc-200 transition-colors hover:scale-[1.015]"
+        >
+          Visit Portfolio
+        </a>
+
+        {
+          socialLinks.map(({ name, icon: Icon, url }) => (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={name}
+              class="w-full flex items-center justify-between py-[18px] px-6 rounded-full bg-white/[0.03] border border-white/10 text-white text-[15px] font-semibold hover:bg-white/10 transition-colors hover:scale-[1.015] group"
+            >
+              <div class="flex items-center gap-3">
+                <Icon class="w-[20px] h-[20px] text-brand-text/60 group-hover:text-brand-orange transition-colors" />
+                <span>{name}</span>
+              </div>
+              <ArrowUpRight class="w-[18px] h-[18px] text-brand-text/40 group-hover:text-white transition-colors" />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Latest Blogs Stack -->
+      <div class="w-full flex flex-col items-center mt-6">
+        <div class="w-full flex items-center gap-3 mb-5">
+          <div class="h-px w-6 bg-linear-to-r from-brand-orange to-transparent">
+          </div>
+          <span
+            class="text-brand-orange text-[11px] font-semibold uppercase tracking-[1.5px]"
+          >
+            Latest Writings
+          </span>
+          <div
+            class="h-px flex-1 bg-linear-to-l from-brand-orange/0 to-white/10"
+          >
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-3.5">
+          {
+            latestPosts.map((post) => (
+              <a
+                href={post.url}
+                class="w-full flex flex-col gap-2 p-5 rounded-[24px] bg-white/[0.03] border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all group hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-orange/5"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-2 h-2 rounded-full"
+                      style={`background-color: ${post.frontmatter.color || "#ef6c4a"}`}
+                    />
+                    <span class="text-[11px] font-medium text-brand-text/50 uppercase tracking-wider">
+                      {post.frontmatter.date}
+                    </span>
+                  </div>
+                  <ArrowUpRight class="w-[18px] h-[18px] text-brand-text/40 group-hover:text-brand-orange transition-colors" />
+                </div>
+                <div class="flex flex-col mt-1">
+                  <h3 class="text-[16px] font-bold text-white leading-snug group-hover:text-brand-orange transition-colors">
+                    {post.frontmatter.title}
+                  </h3>
+                  <p class="text-[13px] text-brand-text/60 line-clamp-2 mt-1.5 leading-relaxed">
+                    {post.frontmatter.excerpt}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
