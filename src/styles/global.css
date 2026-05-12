@@ -2,9 +2,20 @@
 @source "../posts";
 
 @theme {
-  --color-brand-orange: #ef6c4a;
-  --color-brand-yellow: #f5a623;
-  --color-brand-purple: #7b5ea7;
+  /* Main Brand Colors (Updated from Figma "Tokidev — Gradients") */
+  --color-brand-orange: #F53955; /* Cool Red */
+  --color-brand-yellow: #FA743F; /* Cool Orange */
+  --color-brand-purple: #A406E9; /* Good Purple */
+  
+  /* Additional Palette Colors */
+  --color-cool-red: #F53955;
+  --color-cool-orange: #FA743F;
+  --color-aero-pink: #DA2984;
+  --color-good-purple: #A406E9;
+  --color-dark-purple: #131139;
+  --color-soft-shadow: #181818;
+  --color-light-shadow: #2C2C2C;
+  
   --color-brand-bg: #0a111a;
   --color-brand-glass: rgba(26, 16, 41, 0.6);
   --color-brand-border: rgba(123, 94, 167, 0.15);
@@ -12,6 +23,15 @@
   --color-brand-text-dim: rgba(240, 238, 242, 0.5);
   
   --font-inter: "Inter", sans-serif;
+
+  /* Custom Gradients from Figma */
+  --background-image-hero-title: linear-gradient(180deg, #fff 0%, #fff 50%, #A406E9 70.673%, #DA2984 85%, #FA743F 100%);
+  --background-image-hero-card: linear-gradient(107.6deg, rgba(255, 255, 255, 0.36) 1.2%, rgba(196, 196, 196, 0.06) 100%);
+
+  /* Custom Spacing from Figma */
+  --spacing-social-size: 54px;
+  --spacing-btn-px: 52px;
+  --spacing-btn-py: 18px;
 }
 
 @layer base {

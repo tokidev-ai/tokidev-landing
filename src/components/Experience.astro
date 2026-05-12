@@ -1,53 +1,58 @@
 ---
-import ExperienceCard from './ExperienceCard.astro';
+import ExperienceCard from "./ExperienceCard.astro";
 
 const experiences = [
   {
     company: "Unosquare",
     role: "Senior Software Engineer",
     period: "2021 — Present",
-    description: "Leading enterprise transformation through scalable cloud architectures.",
+    description:
+      "Leading enterprise transformation through scalable cloud architectures.",
     color: "#ef6c4a",
-    isCurrent: true
+    isCurrent: true,
   },
   {
     company: "NICE CXone",
     role: "Fullstack Engineer",
     period: "2019 — 2021",
-    description: "Building real-time communication platforms for global enterprise.",
-    color: "#f5a623"
+    description:
+      "Building real-time communication platforms for global enterprise.",
+    color: "#f5a623",
   },
   {
     company: "Special Tours",
     role: "Software Developer",
     period: "2017 — 2019",
-    description: "Engineering complex booking engines for the European travel market.",
-    color: "#7b5ea7"
-  }
+    description:
+      "Engineering complex booking engines for the European travel market.",
+    color: "#7b5ea7",
+  },
 ];
 ---
 
 <section id="experience" class="py-12 md:py-20 flex justify-center">
-  <div class="w-[92%] max-w-[1120px] flex flex-col items-center">
-    
+  <div class="w-full flex flex-col items-center">
     <!-- Section Header -->
     <div class="w-full flex flex-col items-start lg:items-end mb-12 md:mb-16">
       <div class="flex items-center gap-3 mb-2">
-        <div class="h-px w-10 bg-linear-to-r from-brand-orange to-transparent"></div>
-        <span class="text-brand-orange text-sm font-semibold uppercase tracking-[4px]">
+        <div class="h-px w-10 bg-linear-to-r from-brand-orange to-transparent">
+        </div>
+        <span
+          class="text-brand-orange text-sm font-semibold uppercase tracking-[4px]"
+        >
           EXPERIENCE
         </span>
       </div>
-      <h2 class="text-[32px] md:text-[38px] font-bold tracking-[-0.76px] bg-linear-to-r from-brand-text via-brand-text via-55% to-brand-yellow bg-clip-text text-transparent">
+      <h2
+        class="text-[32px] md:text-[38px] font-bold tracking-[-0.76px] bg-linear-to-r from-brand-text via-brand-text via-55% to-brand-yellow bg-clip-text text-transparent"
+      >
         Where I've shipped.
       </h2>
     </div>
 
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-      {experiences.map(exp => (
-        <ExperienceCard {...exp} />
-      ))}
+      {experiences.map((exp) => <ExperienceCard {...exp} />)}
     </div>
   </div>
 </section>

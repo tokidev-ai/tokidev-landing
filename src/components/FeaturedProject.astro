@@ -1,22 +1,30 @@
 ---
-import ProjectCard from './ProjectCard.astro';
+import ProjectCard from "./ProjectCard.astro";
 
 const featuredProject = {
   id: "01",
   title: "solveOS",
   subtitle: "distributed problem solving",
-  description: "A distributed operating system framework for real-time problem solving. Built with Rust and WebAssembly to enable high-performance compute in browser environments.",
+  description:
+    "A distributed operating system framework for real-time problem solving. Built with Rust and WebAssembly to enable high-performance compute in browser environments.",
   tech: ["RUST", "WASM", "REDIS"],
-  color: "#ef6c4a"
+  color: "#ef6c4a",
 };
 ---
 
-<section id="projects" class="w-full flex justify-center relative pt-12 lg:pt-[140px] pb-24 md:pb-32">
-  <div class="w-[92%] max-w-[1120px] relative flex flex-col items-start">
+<section
+  id="projects"
+  class="w-full flex justify-center relative pt-12 lg:pt-[140px] pb-24 md:pb-32"
+>
+  <div class="w-full relative flex flex-col items-start">
     <!-- Section Label -->
-    <div class="relative lg:absolute top-0 lg:-top-[80px] left-0 flex items-center gap-[12px] mb-8 lg:mb-0">
+    <div
+      class="relative lg:absolute top-0 lg:-top-[80px] left-0 flex items-center gap-[12px] mb-8 lg:mb-0"
+    >
       <div class="bg-brand-orange/80 h-[2px] w-[32px]"></div>
-      <span class="text-brand-orange/70 text-[14px] lg:text-[16px] font-bold tracking-[1.92px] whitespace-nowrap">
+      <span
+        class="text-brand-orange/70 text-[14px] lg:text-[16px] font-bold tracking-[1.92px] whitespace-nowrap"
+      >
         SELECTED PROJECTS
       </span>
     </div>

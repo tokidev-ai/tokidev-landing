@@ -8,13 +8,25 @@ const socialLinks = [
     label: "LinkedIn",
   },
   { icon: Github, href: "https://github.com/tokidev-ai", label: "GitHub" },
-  { icon: Instagram, href: "https://www.instagram.com/tokidev.ai/", label: "Instagram" },
-  { icon: Mail, href: "mailto:rodrigo.torricodelcastillo@gmail.com", label: "Email" },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/tokidev.ai/",
+    label: "Instagram",
+  },
+  {
+    icon: Mail,
+    href: "mailto:rodrigo.torricodelcastillo@gmail.com",
+    label: "Email",
+  },
 ];
 ---
 
-<footer class="py-12 md:py-16 flex justify-center border-t border-brand-border/10">
-  <div class="w-[92%] max-w-[1120px] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+<footer
+  class="py-12 md:py-16 flex justify-center border-t border-brand-border/10"
+>
+  <div
+    class="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4"
+  >
     <!-- Logo & Brand Info -->
     <div class="flex items-center gap-3">
       <div
@@ -37,11 +49,16 @@ const socialLinks = [
 
     <!-- Navigation (Mobile focused) -->
     <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 md:hidden">
-      {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
-        <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="text-[13px] font-medium text-brand-text/40 hover:text-brand-orange transition-colors">
-          {link}
-        </a>
-      ))}
+      {
+        ["About", "Experience", "Projects", "Community", "Blog"].map((link) => (
+          <a
+            href={link === "Blog" ? "/blog" : `/#${link.toLowerCase()}`}
+            class="text-[13px] font-medium text-brand-text/40 hover:text-brand-orange transition-colors"
+          >
+            {link}
+          </a>
+        ))
+      }
     </div>
 
     <!-- Social Links -->
