@@ -1,0 +1,112 @@
+---
+import { Code, Zap, Smartphone, Bot, GraduationCap } from 'lucide-astro';
+
+const smallCapabilities = [
+  {
+    icon: Zap,
+    title: "High Performance",
+    desc: "Sub-100ms targets",
+    bgColor: "rgba(255,201,60,0.18)",
+    borderColor: "rgba(255,201,60,0.3)"
+  },
+  {
+    icon: Smartphone,
+    title: "Responsive Design",
+    desc: "Mobile-first always",
+    bgColor: "rgba(196,168,255,0.18)",
+    borderColor: "rgba(196,168,255,0.3)"
+  },
+  {
+    icon: Bot,
+    title: "AI Automation",
+    desc: "Cursor & n8n",
+    bgColor: "rgba(155,111,255,0.18)",
+    borderColor: "rgba(155,111,255,0.3)"
+  },
+  {
+    icon: GraduationCap,
+    title: "Always Learning",
+    desc: "New stack monthly",
+    bgColor: "rgba(255,138,92,0.18)",
+    borderColor: "rgba(255,138,92,0.3)"
+  }
+];
+
+const stats = [
+  { value: "2+", label: "Years of experience" },
+  { value: "11+", label: "Projects completed" },
+  { value: "20+", label: "Technologies" },
+  { value: "∞", label: "Cups of coffee", special: true }
+];
+---
+
+<section id="capabilities" class="py-20 w-full flex flex-col items-center">
+  <!-- Section Header -->
+  <div class="w-full flex flex-col gap-2 items-start mb-12">
+    <div class="flex gap-2 items-center">
+      <div class="bg-linear-to-r from-brand-orange to-transparent h-px w-10"></div>
+      <p class="font-mono font-medium text-[#ff8a5c] text-sm tracking-[2.88px] uppercase">
+        WHAT I DO BEST
+      </p>
+    </div>
+    <h2 class="font-semibold text-3xl md:text-[32px] text-white">
+      Capabilities & impact
+    </h2>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="w-full flex flex-col lg:flex-row gap-6 items-stretch mb-6">
+    <!-- Large Card (Hero) -->
+    <div class="backdrop-blur-md bg-white/4 border border-white/8 relative rounded-3xl p-6 lg:p-8 flex flex-col justify-between min-h-[280px] lg:w-[448px] shrink-0 transition-all duration-300 hover:border-[#ff6b35]/30 hover:bg-[linear-gradient(146.5deg,rgba(255,107,53,0.18)_0%,rgba(155,111,255,0.1)_100%)] group">
+      <div class="bg-[#ff6b35]/20 border border-[#ff6b35]/35 flex items-center justify-center rounded-xl size-12">
+        <Code size={22} class="text-[#ff6b35]" />
+      </div>
+      <div>
+        <h3 class="font-semibold text-xl lg:text-2xl text-white mb-2">
+          Clean, scalable code
+        </h3>
+        <p class="text-white/65 text-sm leading-relaxed">
+          Best practices applied to architecture, naming, and testing — code that other engineers actually want to inherit.
+        </p>
+      </div>
+    </div>
+
+    <!-- Small Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+      {smallCapabilities.map((cap) => (
+        <div class="backdrop-blur-md bg-white/4 border border-white/8 relative rounded-2xl p-5 flex flex-col justify-between min-h-[140px] transition-all duration-300 hover:border-[#ff6b35]/30 hover:bg-[linear-gradient(146.5deg,rgba(255,107,53,0.18)_0%,rgba(155,111,255,0.1)_100%)] group">
+          <div class="flex items-center justify-center rounded-lg size-10" style={`background-color: ${cap.bgColor}; border: 1px solid ${cap.borderColor};`}>
+            <cap.icon size={20} class="text-white/80" />
+          </div>
+          <div>
+            <h4 class="font-semibold text-base text-white mb-1 group-hover:text-brand-orange transition-colors">
+              {cap.title}
+            </h4>
+            <p class="text-white/55 text-xs">
+              {cap.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="backdrop-blur-md bg-white/4 border border-white/8 relative rounded-2xl w-full py-4 lg:py-6 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-0">
+    {stats.map((stat, index) => (
+      <>
+        <div class="flex flex-col items-center justify-center flex-1">
+          <p class={`font-bold text-3xl mb-1 ${stat.special ? 'text-[#9b6fff]' : 'text-[#ff6b35]'}`}>
+            {stat.value}
+          </p>
+          <p class="text-white/60 text-xs text-center">
+            {stat.label}
+          </p>
+        </div>
+        {index < stats.length - 1 && (
+          <div class="hidden sm:block bg-white/10 h-12 w-px"></div>
+        )}
+      </>
+    ))}
+  </div>
+</section>

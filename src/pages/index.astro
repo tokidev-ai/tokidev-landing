@@ -1,15 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import Experience from '../components/Experience.astro';
-import FeaturedProject from '../components/FeaturedProject.astro';
-import Community from '../components/Community.astro';
-import Testimonials from '../components/Testimonials.astro';
-import CTA from '../components/CTA.astro';
-import Footer from '../components/Footer.astro';
-import BackgroundGlows from '../components/BackgroundGlows.astro';
-import TechMarquee from '../components/TechMarquee.astro';
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Experience from "../components/Experience.astro";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import Community from "../components/Community.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CTA from "../components/CTA.astro";
+import Footer from "../components/Footer.astro";
+import BackgroundGlows from "../components/BackgroundGlows.astro";
+import TechMarquee from "../components/TechMarquee.astro";
+import Capabilities from "../components/Capabilities.astro";
 ---
 
 <Layout
@@ -18,7 +19,7 @@ import TechMarquee from '../components/TechMarquee.astro';
 >
   <BackgroundGlows slot="background" />
 
-  <div class="relative w-full max-w-[1440px] mx-auto min-h-screen overflow-x-hidden">
+  <div class="relative w-full mx-auto min-h-screen overflow-x-hidden">
     <Navbar />
 
     <main class="w-full relative z-10">
@@ -32,10 +33,11 @@ import TechMarquee from '../components/TechMarquee.astro';
 
       <!-- Rest of the Sections (Constrained) -->
       <div class="w-[92%] max-w-[1120px] mx-auto flex flex-col items-center">
-        <Experience />
+        <Capabilities />
         <FeaturedProject />
         <Community />
         <Testimonials />
+        <Experience />
         <CTA />
         <Footer />
       </div>
