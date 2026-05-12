@@ -9,6 +9,7 @@ import Testimonials from '../components/Testimonials.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
 import BackgroundGlows from '../components/BackgroundGlows.astro';
+import TechMarquee from '../components/TechMarquee.astro';
 ---
 
 <Layout
@@ -20,17 +21,24 @@ import BackgroundGlows from '../components/BackgroundGlows.astro';
   <div class="relative w-full max-w-[1440px] mx-auto min-h-screen overflow-x-hidden">
     <Navbar />
 
-    <div class="w-[92%] max-w-[1120px] mx-auto relative z-10">
-      <main class="flex flex-col items-center w-full">
+    <main class="w-full relative z-10">
+      <!-- Hero Section (Constrained) -->
+      <div class="w-[92%] max-w-[1120px] mx-auto">
         <Hero />
+      </div>
+
+      <!-- Full Width Marquee -->
+      <TechMarquee />
+
+      <!-- Rest of the Sections (Constrained) -->
+      <div class="w-[92%] max-w-[1120px] mx-auto flex flex-col items-center">
         <Experience />
         <FeaturedProject />
         <Community />
         <Testimonials />
         <CTA />
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </main>
   </div>
 </Layout>

@@ -1,0 +1,36 @@
+---
+import technologies from "../data/technologies.json";
+---
+
+<div
+  class="w-full backdrop-blur-md bg-white/3 border-y border-white/6 overflow-hidden py-6 my-12"
+>
+  <div
+    class="marquee-track flex items-center gap-14 whitespace-nowrap text-[#8c8f9e] text-sm font-mono tracking-wider"
+  >
+    <!-- First set -->
+    {technologies.map((tech) => <span class="shrink-0">{tech}</span>)}
+    <!-- Second set for seamless loop -->
+    {technologies.map((tech) => <span class="shrink-0">{tech}</span>)}
+  </div>
+</div>
+
+<script>
+  import { animate } from "motion";
+
+  const track = document.querySelector(".marquee-track");
+
+  if (track) {
+    // We animate to -50% because the track contains the list twice.
+    // Moving by half its width brings the second set to the starting position of the first.
+    animate(
+      track,
+      { x: ["0%", "-50%"] },
+      {
+        duration: 30,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    );
+  }
+</script>
