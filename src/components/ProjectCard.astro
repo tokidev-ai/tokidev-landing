@@ -11,80 +11,118 @@ interface Props {
 const { id, title, subtitle, description, tech, color } = Astro.props;
 
 // Split subtitle for the 2-line layout if it contains "problem solving"
-const subtitleParts = subtitle.split('problem solving');
-const hasProblemSolving = subtitle.includes('problem solving');
+const subtitleParts = subtitle.split("problem solving");
+const hasProblemSolving = subtitle.includes("problem solving");
 ---
 
-<div class="relative w-full h-auto lg:h-[580px] rounded-[24px] lg:rounded-[32px] border border-brand-border/10 group flex flex-col lg:block overflow-hidden lg:overflow-visible">
+<div
+  class="relative w-full h-auto rounded-[24px] lg:rounded-[32px] border border-brand-border/10 group flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-10 overflow-hidden"
+>
   <!-- Secondary Glass Background Layer -->
-  <div class="absolute -inset-x-px -inset-y-px bg-linear-to-br from-black/36 to-zinc-400/5 backdrop-blur-[15px] rounded-[24px] lg:rounded-[32px] -z-10"></div>
-  
+  <div
+    class="absolute -inset-x-px -inset-y-px bg-linear-to-br from-black/36 to-zinc-400/5 backdrop-blur-[15px] rounded-[24px] lg:rounded-[32px] -z-10"
+  >
+  </div>
+
   <!-- Primary Background -->
-  <div class="absolute inset-0 bg-brand-glass/60 backdrop-blur-[10px] rounded-[24px] lg:rounded-[32px] -z-20"></div>
-  
+  <div
+    class="absolute inset-0 bg-brand-glass/60 backdrop-blur-[10px] rounded-[24px] lg:rounded-[32px] -z-20"
+  >
+  </div>
+
   <!-- Content Container -->
-  <div class="relative lg:absolute lg:left-[60px] lg:top-[123px] w-full lg:w-[500px] flex flex-col items-start z-10 p-8 lg:p-0">
-    <p class="font-bold text-[13px] lg:text-[14px] text-brand-text/30 whitespace-nowrap mb-[10px] lg:mb-[12px]">
+  <div
+    class="relative w-full lg:w-[48%] flex flex-col items-start z-10 p-6 lg:p-0"
+  >
+    <p
+      class="font-bold text-[13px] lg:text-[14px] text-brand-text/30 whitespace-nowrap mb-[10px] lg:mb-[12px]"
+    >
       {id}
     </p>
-    
-    <div class="bg-brand-purple/15 border border-brand-purple/20 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-full mb-[16px] lg:mb-[20px]">
-      <p class="text-brand-purple text-[10px] lg:text-[11px] font-bold tracking-[0.44px] uppercase whitespace-nowrap">
+
+    <div
+      class="bg-brand-purple/15 border border-brand-purple/20 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-full mb-[16px] lg:mb-[20px]"
+    >
+      <p
+        class="text-brand-purple text-[10px] lg:text-[11px] font-bold tracking-[0.44px] uppercase whitespace-nowrap"
+      >
         Selected Projects
       </p>
     </div>
 
-    <h3 class="text-[32px] lg:text-[40px] font-bold tracking-[-0.8px] text-brand-text/95 leading-[1.2] lg:leading-[48px] mb-[16px] lg:mb-[20px]">
+    <h3
+      class="text-[28px] lg:text-[36px] font-bold tracking-[-0.8px] text-brand-text/95 leading-[1.2] mb-[16px] lg:mb-[20px]"
+    >
       <span style={`color: ${color};`}>{title}</span>: {subtitleParts[0]}
       {hasProblemSolving && <br class="hidden lg:block" />}
       {hasProblemSolving && "problem solving"}
     </h3>
 
-    <div class="text-brand-text/40 text-[13px] lg:text-[14px] font-medium leading-[1.6] lg:leading-[24px] mb-[20px] lg:mb-[24px] max-w-[480px]">
+    <div
+      class="text-brand-text/40 text-[13px] lg:text-[14px] font-medium leading-[1.6] mb-[20px] lg:mb-[24px] max-w-[480px]"
+    >
       <p>{description}</p>
     </div>
 
     <div class="flex flex-wrap gap-[8px] items-start">
-      {tech.map((t) => (
-        <div class="bg-brand-orange/8 border border-brand-orange/15 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-[6px]">
-          <span class="text-[10px] lg:text-[11px] font-bold text-brand-orange/80 tracking-[0.44px] uppercase whitespace-nowrap">
-            {t}
-          </span>
-        </div>
-      ))}
+      {
+        tech.map((t) => (
+          <div class="bg-brand-orange/8 border border-brand-orange/15 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-[6px]">
+            <span class="text-[10px] lg:text-[11px] font-bold text-brand-orange/80 tracking-[0.44px] uppercase whitespace-nowrap">
+              {t}
+            </span>
+          </div>
+        ))
+      }
     </div>
   </div>
 
   <!-- Visual Mockup Area -->
-  <div class="relative lg:absolute lg:right-[40px] lg:top-[49px] w-full lg:w-[480px] h-[320px] lg:h-[480px] mt-4 lg:mt-0 flex items-center justify-center">
-      <!-- Central Glow -->
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] lg:w-[280px] h-[200px] lg:h-[280px] bg-brand-purple/30 blur-[60px] lg:blur-[80px] rounded-full opacity-60 group-hover:bg-brand-orange/30 transition-colors duration-1000"></div>
-      
-      <!-- Mockup Card Wrapper -->
-      <div class="relative lg:absolute lg:left-[30px] lg:top-[30px] w-[280px] sm:w-[320px] lg:w-[420px] h-[280px] sm:h-[320px] lg:h-[420px] bg-linear-to-br from-[#1a1029] to-[#0f0a1a] border border-white/10 rounded-[24px] lg:rounded-[28px] shadow-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-700">
-          
-          <!-- Inner Glow -->
-          <div class="absolute left-[40%] top-[40%] w-[150px] lg:w-[200px] h-[150px] lg:h-[200px] bg-brand-orange/15 blur-2xl lg:blur-[60px] rounded-full"></div>
+  <div
+    class="relative w-full lg:w-[45%] h-[300px] lg:h-[400px] my-6 lg:mt-0 flex items-center justify-center"
+  >
+    <!-- Central Glow -->
+    <div
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] lg:w-[250px] h-[200px] lg:h-[250px] bg-brand-purple/30 blur-[60px] lg:blur-[80px] rounded-full opacity-60 group-hover:bg-brand-orange/30 transition-colors duration-1000"
+    >
+    </div>
 
-          <!-- Decorative Grid -->
-          <div class="absolute inset-0 p-8 lg:p-10 flex flex-col justify-between opacity-10">
-              {[1,2,3,4,5,6].map(() => (
-                  <div class="w-full h-px bg-white/40"></div>
-              ))}
-          </div>
-
-          <!-- Bar Chart Visual -->
-          <div class="absolute inset-0 flex items-end justify-center gap-2 lg:gap-4 px-8 lg:px-12 pb-12 lg:pb-16">
-              {[35, 65, 45, 90, 55, 75, 40, 50].map((h, i) => (
-                  <div 
-                    class="w-full bg-linear-to-t from-brand-orange/40 to-brand-orange/10 rounded-t-sm transition-all duration-1000 group-hover:from-brand-purple/40 group-hover:to-brand-purple/10" 
-                    style={`height: ${h * 0.7}px; transition-delay: ${i * 50}ms;`}
-                  ></div>
-              ))}
-          </div>
-
-          <!-- Overlay Shine -->
-          <div class="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent pointer-events-none"></div>
+    <!-- Mockup Card Wrapper -->
+    <div
+      class="relative w-[280px] sm:w-[320px] lg:w-[380px] h-[260px] sm:h-[300px] lg:h-[360px] bg-linear-to-br from-[#1a1029] to-[#0f0a1a] border border-white/10 rounded-[24px] lg:rounded-[28px] shadow-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-700 flex flex-col justify-between p-6"
+    >
+      <!-- Inner Glow -->
+      <div
+        class="absolute left-[40%] top-[40%] w-[150px] lg:w-[180px] h-[150px] lg:h-[180px] bg-brand-orange/15 blur-2xl lg:blur-[50px] rounded-full"
+      >
       </div>
+
+      <!-- Decorative Grid -->
+      <div
+        class="absolute inset-0 p-6 flex flex-col justify-between opacity-10"
+      >
+        {[1, 2, 3, 4, 5].map(() => <div class="w-full h-px bg-white/40" />)}
+      </div>
+
+      <!-- Bar Chart Visual -->
+      <div
+        class="absolute inset-0 flex items-end justify-center gap-2 px-6 pb-10"
+      >
+        {
+          [35, 65, 45, 90, 55, 75, 40, 50].map((h, i) => (
+            <div
+              class="w-full bg-linear-to-t from-brand-orange/40 to-brand-orange/10 rounded-t-sm transition-all duration-1000 group-hover:from-brand-purple/40 group-hover:to-brand-purple/10"
+              style={`height: ${h * 0.6}px; transition-delay: ${i * 50}ms;`}
+            />
+          ))
+        }
+      </div>
+
+      <!-- Overlay Shine -->
+      <div
+        class="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent pointer-events-none"
+      >
+      </div>
+    </div>
   </div>
 </div>
