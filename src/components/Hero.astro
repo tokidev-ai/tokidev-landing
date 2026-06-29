@@ -1,4 +1,7 @@
 ---
+// ─── Componente Hero ───
+// Implementación fidelizada al nodo 66:788 y 66:818 de Figma.
+// Atiende la observación del borde: border más fino (1.5px) con trazo en degradé multicolor (blanco, magenta y púrpura) que interactúa dinámicamente con el fondo glassmorphic.
 import {
   Github,
   Linkedin,
@@ -10,57 +13,56 @@ import Button from "./Button.astro";
 
 <section
   id="about"
-  class="relative pt-24 pb-12 lg:pt-32 lg:pb-20 flex justify-center"
+  class="relative pt-24 pb-12 lg:pt-32 lg:pb-20 flex justify-center w-full"
 >
-  <div class="flex flex-col lg:flex-row items-center gap-12 z-10">
-    <!-- Left Column -->
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-12 z-10 w-full">
+    <!-- Columna Izquierda: Información de Cabecera, Redes y CTAs -->
     <div
       class="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 lg:gap-8 w-full lg:flex-1"
     >
+      <!-- 1. Kicker / Tag (Sin background ni border según Figma) -->
       <div
         data-hero="badge"
-        class="px-4 py-2 bg-white/7 backdrop-blur-md border border-white/12 rounded-full overflow-hidden inline-block"
+        class="flex items-center gap-3 py-1 inline-flex"
       >
+        <span class="w-7 h-[2px] rounded-full bg-gradient-to-r from-[#DA2984] to-[#A406E9]"></span>
         <span
-          class="text-xs font-semibold text-[#cce0ff] uppercase tracking-[1.65px]"
+          class="text-xs font-semibold uppercase tracking-[0.72px] bg-clip-text text-transparent bg-gradient-to-r from-[#FA743F] to-[#DA2984]"
         >
-          SENIOR FULLSTACK ENGINEER ★
+          SENIOR FULLSTACK ENGINEER · BOLIVIA · DISPONIBLE 2026
         </span>
       </div>
 
+      <!-- Título Principal con Tonalidades de Gradiente Distintivas de Figma -->
       <h1
         data-hero="title"
-        class="text-3xl sm:text-4xl lg:text-6xl font-medium leading-[1.1] lg:leading-[1.07] tracking-[-1.2px] lg:tracking-[-1.8px] bg-hero-title bg-clip-text text-transparent"
+        class="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight text-white max-w-[680px]"
       >
-        Your next product deserves an <span class="font-bold">engineer</span>,
-        not just a <span class="font-bold">developer</span>.
+        Your next product deserves an <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#A406E9] to-[#DA2984]">engineer</span>, not just a <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#DA2984] to-[#FA743F]">developer</span>.
       </h1>
 
+      <!-- Descripción Profesional -->
       <div
         data-hero="desc"
-        class="text-[#c6cad0] text-sm sm:text-base lg:text-lg leading-[1.6] max-w-[520px]"
+        class="text-[#a5a5b9] text-base sm:text-lg leading-[1.65] max-w-[620px]"
       >
         <p>
-          With over a decade of experience, I specialize in bridging complex
-          backend architectures and high-performance frontend interfaces. My
-          approach is rooted in clean code and developer experience.
+          With over a decade of experience, I specialize in bridging complex backend architectures and high-performance frontend interfaces. My approach is rooted in clean code and developer experience.
         </p>
       </div>
 
+      <!-- Bloque de Botones (Primero Redes Sociales, Luego CTAs según Figma 66:788) -->
       <div
         data-hero="actions"
         class="flex flex-col items-center lg:items-start gap-6 mt-2 w-full sm:w-auto"
       >
-        <!-- Main CTA Común -->
-        <Button href="#contact" size="lg" class="w-full sm:w-auto">Let's Talk</Button>
-
-        <!-- Social Icons -->
+        <!-- Iconos de Redes Sociales -->
         <div class="flex gap-3.5 items-start">
           <a
             href="https://github.com/tokidev-ai"
             target="_blank"
             rel="noopener noreferrer"
-            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 transition-colors"
+            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
             <Github size={22} class="text-white" />
           </a>
@@ -68,7 +70,7 @@ import Button from "./Button.astro";
             href="https://www.linkedin.com/in/tokidev/"
             target="_blank"
             rel="noopener noreferrer"
-            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 transition-colors"
+            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
             <Linkedin size={22} class="text-white" />
           </a>
@@ -76,41 +78,36 @@ import Button from "./Button.astro";
             href="https://www.instagram.com/tokidev.ai/"
             target="_blank"
             rel="noopener noreferrer"
-            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 transition-colors"
+            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
             <Instagram size={22} class="text-white" />
           </a>
           <a
             href="mailto:rodrigo.torricodelcastillo@gmail.com"
-            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 transition-colors"
+            class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
             <Mail size={22} class="text-white" />
           </a>
         </div>
+
+        <!-- Botones Principales -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <Button href="#contact" variant="primary" size="lg" class="w-full sm:w-auto">
+            Let's Talk
+          </Button>
+          <Button href="#projects" variant="secondary" size="lg" class="w-full sm:w-auto">
+            Ver proyectos
+          </Button>
+        </div>
       </div>
     </div>
 
-    <!-- Right Column (Glass Visual) -->
-    <!-- Columna derecha: Tarjeta flotante con efecto glassmorphic y gradientes del concepto visual -->
+    <!-- 3. Columna Derecha: Tarjeta Flotante con Borde Fino (1.5px) y Trazo en Gradiente -->
     <div
       data-hero="card"
-      class="shrink-0 w-full max-w-[340px] sm:max-w-[400px] lg:w-[400px] xl:w-[452px] h-[320px] sm:h-[380px] lg:h-[416px] rounded-[40px] lg:rounded-[56px] border-2 lg:border-[3px] border-white/40 bg-hero-card backdrop-blur-2xl relative overflow-hidden group"
+      class="shrink-0 w-full max-w-[360px] sm:max-w-[420px] lg:w-[452px] h-[360px] sm:h-[460px] lg:h-[559px] rounded-[40px] lg:rounded-[56px] border-[1.5px] border-transparent backdrop-blur-[20px] relative overflow-hidden shadow-2xl shadow-purple-950/50"
+      style="background: linear-gradient(231.041deg, rgba(218, 41, 132, 0.9) 14.645%, rgba(164, 6, 233, 0.85) 50%, rgba(80, 20, 160, 0.8) 85.355%) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(218, 41, 132, 0.45) 45%, rgba(164, 6, 233, 0.3) 75%, rgba(255, 255, 255, 0.2) 100%) border-box;"
     >
-      <!-- Decoración luminosa interior utilizando los tonos oficiales naranja y púrpura de marca -->
-      <div
-        class="absolute -top-10 -right-10 w-40 h-40 bg-brand-orange/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"
-      >
-      </div>
-      <div
-        class="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-purple/30 blur-3xl rounded-full group-hover:scale-125 transition-transform duration-1000"
-      >
-      </div>
-
-      <!-- Borde sutil interno para reforzar el acabado premium definido en el sistema de diseño -->
-      <div
-        class="absolute inset-0 border border-white/5 rounded-[40px] lg:rounded-[56px] pointer-events-none"
-      >
-      </div>
     </div>
   </div>
 </section>

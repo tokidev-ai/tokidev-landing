@@ -1,7 +1,7 @@
 ---
 // ─── Componente Reutilizable Button.astro ───
 // Botón de acción principal reutilizable en múltiples páginas.
-// Integra los gradientes oficiales, micro-interacciones de hover y un border-radius ajustado (rounded-xl / 12px) según el Manual de Marca de Figma.
+// Soporta variantes primary, secondary y outline consumiendo los tokens oficiales de Figma.
 import { ArrowRight } from 'lucide-astro';
 
 interface Props {
@@ -19,18 +19,21 @@ const {
   type = 'button',
   variant = 'primary',
   size = 'md',
-  showArrow = true,
+  showArrow,
   class: className = '',
   ...rest
 } = Astro.props;
 
-// Clases base con border-radius modificado (rounded-xl / 12px) según lo solicitado
+// Por defecto, la variante primaria muestra flecha y las variantes secundaria/outline no a menos que se especifique
+const shouldShowArrow = showArrow !== undefined ? showArrow : variant === 'primary';
+
+// Clases base con border-radius estandarizado a rounded-xl (12px) según Figma
 const baseClasses = 'inline-flex items-center justify-center gap-2.5 font-semibold transition-all duration-300 rounded-xl cursor-pointer active:scale-95 select-none';
 
-// Variantes de estilo consumiendo los tokens globales
+// Variantes de estilo consumiendo los tokens globales de Figma
 const variantClasses = {
   primary: 'bg-gradient-to-r from-brand-red to-brand-orange text-white hover:brightness-110 shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40',
-  secondary: 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-md',
+  secondary: 'bg-white/5 text-white/95 hover:bg-[#DA2984]/20 border border-[#DA2984]/80 backdrop-blur-md shadow-md shadow-[#DA2984]/15',
   outline: 'bg-transparent text-white border-2 border-brand-red/80 hover:bg-brand-red/10',
 };
 
@@ -38,7 +41,7 @@ const variantClasses = {
 const sizeClasses = {
   sm: 'px-4 py-2 text-xs',
   md: 'px-5 py-2.5 text-xs lg:text-sm',
-  lg: 'px-7 py-3.5 text-sm lg:text-base',
+  lg: 'px-6 py-3.5 text-sm lg:text-base',
 };
 
 const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
@@ -48,12 +51,12 @@ const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses
   href ? (
     <a href={href} class={combinedClasses} {...rest}>
       <slot />
-      {showArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
+      {shouldShowArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
     </a>
   ) : (
     <button type={type} class={combinedClasses} {...rest}>
       <slot />
-      {showArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
+      {shouldShowArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
     </button>
   )
 }
