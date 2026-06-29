@@ -1,0 +1,30 @@
+---
+// ─── Página Detalle de Proyecto (Página en blanco de prueba) ───
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
+---
+
+<Layout title="Project Details | Tokidev">
+  <div class="relative w-full mx-auto min-h-screen overflow-x-hidden bg-brand-bg text-white">
+    <Navbar />
+
+    <main class="w-[92%] max-w-[1120px] mx-auto pt-36 pb-24 flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
+      <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+        <span class="text-xs font-mono text-[#DA2984] uppercase tracking-wider">PROJECT DETAILS</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Project View Placeholder</h1>
+      <p class="text-[#a0a0b4] text-base sm:text-lg max-w-md">
+        Página de demostración lista para vincular detalles específicos de proyectos.
+      </p>
+      <div class="mt-4">
+        <Button href="/#projects" variant="secondary" size="md">← Volver a proyectos</Button>
+      </div>
+    </main>
+
+    <div class="w-[92%] max-w-[1120px] mx-auto">
+      <Footer />
+    </div>
+  </div>
+</Layout>

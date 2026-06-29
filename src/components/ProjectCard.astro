@@ -1,128 +1,102 @@
 ---
+// ─── Componente ProjectCard ───
+// Implementación fidelizada al nodo 66:889 de Figma.
+// Incluye enlace directo a la app en vivo en nueva pestaña (target="_blank").
 interface Props {
   id: string;
   title: string;
   subtitle: string;
   description: string;
   tech: string[];
-  color: string;
+  color?: string;
+  link?: string;
 }
 
-const { id, title, subtitle, description, tech, color } = Astro.props;
-
-// Split subtitle for the 2-line layout if it contains "problem solving"
-const subtitleParts = subtitle.split("problem solving");
-const hasProblemSolving = subtitle.includes("problem solving");
+const { id, title, subtitle, description, tech, link = "https://solveos-app.netlify.app/" } = Astro.props;
 ---
 
 <div
-  class="relative w-full h-auto rounded-[24px] lg:rounded-[32px] border border-brand-border/10 group flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-10 overflow-hidden"
+  class="relative w-full bg-white/[0.03] border border-white/[0.09] rounded-[24px] lg:rounded-[32px] overflow-hidden flex flex-col lg:flex-row items-stretch transition-all duration-300 hover:border-white/20 group shadow-2xl shadow-purple-950/20"
 >
-  <!-- Secondary Glass Background Layer -->
-  <div
-    class="absolute -inset-x-px -inset-y-px bg-linear-to-br from-black/36 to-zinc-400/5 backdrop-blur-[15px] rounded-[24px] lg:rounded-[32px] -z-10"
-  >
-  </div>
-
-  <!-- Primary Background -->
-  <div
-    class="absolute inset-0 bg-brand-glass/60 backdrop-blur-[10px] rounded-[24px] lg:rounded-[32px] -z-20"
-  >
-  </div>
-
-  <!-- Content Container -->
-  <div
-    class="relative w-full lg:w-[48%] flex flex-col items-start z-10 p-6 lg:p-0"
-  >
-    <p
-      class="font-bold text-[13px] lg:text-[14px] text-brand-text/30 whitespace-nowrap mb-[10px] lg:mb-[12px]"
-    >
-      {id}
-    </p>
-
-    <div
-      class="bg-brand-purple/15 border border-brand-purple/20 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-full mb-[16px] lg:mb-[20px]"
-    >
-      <p
-        class="text-brand-purple text-[10px] lg:text-[11px] font-bold tracking-[0.44px] uppercase whitespace-nowrap"
-      >
-        Selected Projects
-      </p>
+  <!-- Columna Izquierda: Información de Proyecto (Figma 66:890) -->
+  <div class="flex-1 p-8 lg:p-11 flex flex-col justify-between items-start gap-6 z-10">
+    
+    <!-- Fila de Índice y Badge FEATURED -->
+    <div class="flex items-center gap-3.5">
+      <span class="font-mono font-bold text-4xl lg:text-5xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#FA743F] to-[#DA2984]">
+        {id}
+      </span>
+      <div class="px-3 py-1.5 rounded-full bg-gradient-to-r from-[#DA2984] to-[#A406E9] flex items-center justify-center shadow-md shadow-purple-900/30">
+        <span class="font-mono font-medium text-[10px] text-white tracking-[0.3px] uppercase">
+          FEATURED
+        </span>
+      </div>
     </div>
 
-    <h3
-      class="text-[28px] lg:text-[36px] font-bold tracking-[-0.8px] text-brand-text/95 leading-[1.2] mb-[16px] lg:mb-[20px]"
-    >
-      <span style={`color: ${color};`}>{title}</span>: {subtitleParts[0]}
-      {hasProblemSolving && <br class="hidden lg:block" />}
-      {hasProblemSolving && "problem solving"}
+    <!-- Título y Subtítulo -->
+    <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-snug">
+      {title} <span class="font-normal text-white/90">— {subtitle}</span>
     </h3>
 
-    <div
-      class="text-brand-text/40 text-[13px] lg:text-[14px] font-medium leading-[1.6] mb-[20px] lg:mb-[24px] max-w-[480px]"
-    >
-      <p>{description}</p>
+    <!-- Descripción Explicativa -->
+    <p class="text-[#a0a0b4] text-sm sm:text-base leading-relaxed max-w-[540px]">
+      {description}
+    </p>
+
+    <!-- Chips de Tecnologías (Figma 66:897) -->
+    <div class="flex flex-wrap gap-2.5 items-center">
+      {tech.map((t) => (
+        <div class="bg-white/5 border border-[#DA2984] px-3.5 py-1.5 rounded-full backdrop-blur-sm">
+          <span class="font-mono font-medium text-[11px] text-[#d7d7e6] tracking-[0.22px] uppercase">
+            {t}
+          </span>
+        </div>
+      ))}
     </div>
 
-    <div class="flex flex-wrap gap-[8px] items-start">
-      {
-        tech.map((t) => (
-          <div class="bg-brand-orange/8 border border-brand-orange/15 px-[12px] lg:px-[14px] py-[4px] lg:py-[6px] rounded-[6px]">
-            <span class="text-[10px] lg:text-[11px] font-bold text-brand-orange/80 tracking-[0.44px] uppercase whitespace-nowrap">
-              {t}
-            </span>
-          </div>
-        ))
-      }
+    <!-- Enlace View project (Redirige a Netlify en nueva pestaña) -->
+    <div class="pt-2">
+      <a 
+        href={link} 
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 font-semibold text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-[#FA743F] to-[#DA2984] hover:brightness-125 transition-all cursor-pointer group/link"
+      >
+        <span>View project</span>
+        <span class="text-[#DA2984] transition-transform group-hover/link:translate-x-1 duration-300">→</span>
+      </a>
     </div>
   </div>
 
-  <!-- Visual Mockup Area -->
-  <div
-    class="relative w-full lg:w-[45%] h-[300px] lg:h-[400px] my-6 lg:mt-0 flex items-center justify-center"
+  <!-- Columna Derecha: Mockup Visual e Iluminación (Figma 66:905) -->
+  <div 
+    class="lg:w-[480px] shrink-0 relative min-h-[260px] lg:min-h-[380px] flex items-center justify-center overflow-hidden"
+    style="background: linear-gradient(237.5deg, rgb(18, 14, 32) 13.397%, rgb(10, 8, 20) 86.603%)"
   >
-    <!-- Central Glow -->
-    <div
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] lg:w-[250px] h-[200px] lg:h-[250px] bg-brand-purple/30 blur-[60px] lg:blur-[80px] rounded-full opacity-60 group-hover:bg-brand-orange/30 transition-colors duration-1000"
-    >
-    </div>
+    <!-- Brillo decorativo de fondo -->
+    <div class="absolute w-72 h-72 bg-[#A406E9]/20 blur-3xl rounded-full -top-10 -right-10 group-hover:scale-125 transition-transform duration-1000"></div>
+    <div class="absolute w-72 h-72 bg-[#DA2984]/20 blur-3xl rounded-full -bottom-10 -left-10 group-hover:scale-125 transition-transform duration-1000"></div>
 
-    <!-- Mockup Card Wrapper -->
-    <div
-      class="relative w-[280px] sm:w-[320px] lg:w-[380px] h-[260px] sm:h-[300px] lg:h-[360px] bg-linear-to-br from-[#1a1029] to-[#0f0a1a] border border-white/10 rounded-[24px] lg:rounded-[28px] shadow-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-700 flex flex-col justify-between p-6"
-    >
-      <!-- Inner Glow -->
-      <div
-        class="absolute left-[40%] top-[40%] w-[150px] lg:w-[180px] h-[150px] lg:h-[180px] bg-brand-orange/15 blur-2xl lg:blur-[50px] rounded-full"
-      >
-      </div>
+    <!-- Barra de acento horizontal superior -->
+    <div class="absolute top-[30px] left-1/2 -translate-x-1/2 w-[80%] h-[3px] rounded-full bg-gradient-to-r from-[#DA2984] to-[#FA743F]"></div>
 
-      <!-- Decorative Grid -->
-      <div
-        class="absolute inset-0 p-6 flex flex-col justify-between opacity-10"
-      >
-        {[1, 2, 3, 4, 5].map(() => <div class="w-full h-px bg-white/40" />)}
-      </div>
-
-      <!-- Bar Chart Visual -->
-      <div
-        class="absolute inset-0 flex items-end justify-center gap-2 px-6 pb-10"
-      >
-        {
-          [35, 65, 45, 90, 55, 75, 40, 50].map((h, i) => (
-            <div
-              class="w-full bg-linear-to-t from-brand-orange/40 to-brand-orange/10 rounded-t-sm transition-all duration-1000 group-hover:from-brand-purple/40 group-hover:to-brand-purple/10"
-              style={`height: ${h * 0.6}px; transition-delay: ${i * 50}ms;`}
-            />
-          ))
-        }
-      </div>
-
-      <!-- Overlay Shine -->
-      <div
-        class="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent pointer-events-none"
-      >
-      </div>
+    <!-- Ecualizador gráfico decorativo -->
+    <div class="flex items-end justify-center gap-3 h-[180px] z-10">
+      {[
+        { h: '60px', delay: '0ms' },
+        { h: '110px', delay: '100ms' },
+        { h: '80px', delay: '200ms' },
+        { h: '150px', delay: '300ms' },
+        { h: '100px', delay: '150ms' },
+        { h: '170px', delay: '250ms' },
+        { h: '130px', delay: '350ms' },
+        { h: '90px', delay: '400ms' },
+      ].map((bar) => (
+        <div 
+          class="w-7 rounded-lg bg-gradient-to-b from-[#A406E9] to-[#DA2984] shadow-md shadow-purple-900/40 transition-all duration-500 group-hover:brightness-125"
+          style={`height: ${bar.h}; transition-delay: ${bar.delay}`}
+        ></div>
+      ))}
     </div>
   </div>
 </div>
