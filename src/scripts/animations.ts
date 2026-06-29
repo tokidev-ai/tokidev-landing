@@ -75,20 +75,58 @@ function initHero() {
   });
 }
 
-// ─── Navbar: intensidad de blur al hacer scroll ──────────────────────────────
+// ─── Navbar: interpolación continua píxel a píxel vinculada al scroll ────────
 
 function initNavbar() {
-  const nav = document.querySelector<HTMLElement>('nav');
+  const nav = document.getElementById('main-navbar');
+  const navPill = document.getElementById('nav-pill');
+  const statusPill = document.getElementById('status-pill');
   if (!nav) return;
 
-  scroll((progress) => {
-    const scrolled = progress > 0.015;
-    nav.style.backdropFilter = scrolled ? 'blur(24px) saturate(1.5)' : 'blur(12px)';
-    nav.style.boxShadow = scrolled ? '0 8px 40px rgba(0,0,0,0.45)' : 'none';
-    nav.style.borderColor = scrolled
-      ? 'rgba(123, 94, 167, 0.25)'
-      : 'rgba(123, 94, 167, 0.15)';
-  });
+  let ticking = false;
+
+  function updateNavbar() {
+    // Calculamos el progreso t de 0 a 1 de forma continua en un rango extendido de 0px a 150px de scroll
+    const scrollDistance = 150;
+    const rawT = Math.min(1, Math.max(0, window.scrollY / scrollDistance));
+    // Curva suave de suavizado líquido (smoothstep cubic curve)
+    const t = rawT * rawT * (3 - 2 * rawT);
+    const invT = 1 - t;
+
+    // 1. Contenedor Principal del Navbar (#main-navbar)
+    nav.style.backgroundColor = `rgba(26, 16, 41, ${(0.82 * t).toFixed(3)})`;
+    nav.style.backdropFilter = `blur(${(24 * t).toFixed(1)}px) saturate(${(1 + 0.5 * t).toFixed(2)})`;
+    nav.style.borderColor = `rgba(255, 255, 255, ${(0.12 * t).toFixed(3)})`;
+    nav.style.boxShadow = `0 ${(20 * t).toFixed(1)}px ${(50 * t).toFixed(1)}px rgba(0, 0, 0, ${(0.5 * t).toFixed(3)})`;
+
+    // 2. Píldora Central de Rutas (#nav-pill)
+    if (navPill) {
+      navPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.04 * invT).toFixed(3)})`;
+      navPill.style.borderColor = `rgba(255, 255, 255, ${(0.09 * invT).toFixed(3)})`;
+      navPill.style.backdropFilter = invT > 0.01 ? `blur(${(12 * invT).toFixed(1)}px)` : 'none';
+      navPill.style.boxShadow = `0 ${(10 * invT).toFixed(1)}px ${(25 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.2 * invT).toFixed(3)})`;
+    }
+
+    // 3. Indicador de Disponibilidad (#status-pill)
+    if (statusPill) {
+      statusPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.04 * invT).toFixed(3)})`;
+      statusPill.style.borderColor = `rgba(255, 255, 255, ${(0.08 * invT).toFixed(3)})`;
+      statusPill.style.backdropFilter = invT > 0.01 ? `blur(${(12 * invT).toFixed(1)}px)` : 'none';
+      statusPill.style.boxShadow = `0 ${(4 * invT).toFixed(1)}px ${(15 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.1 * invT).toFixed(3)})`;
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(updateNavbar);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateNavbar(); // Estado inicial
 }
 
 // ─── Reveal por sección ──────────────────────────────────────────────────────

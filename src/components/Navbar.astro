@@ -1,58 +1,115 @@
 ---
+// ─── Componente Navbar (Navegación Principal) ───
+// Estructura limpia y desacoplada alineada al diseño de Figma.
+// Las propiedades de fondo, bordes traslúcidos, desfoque y sombras son gestionadas dinámicamente por animations.ts.
 import { ArrowRight, Menu, X } from 'lucide-astro';
+
+const navTabs = [
+  { name: 'WORK', href: '/#experience', target: 'experience' },
+  { name: 'ABOUT', href: '/#about', target: 'about' },
+  { name: 'SPEAKING', href: '/#community', target: 'community' },
+  { name: 'WRITING', href: '/blog', target: 'writing' },
+  { name: 'CONTACT', href: '/#contact', target: 'contact' },
+  { name: 'BLOG', href: '/blog', target: 'blog' },
+];
 ---
 
-<nav class="fixed top-5 lg:top-8 left-1/2 -translate-x-1/2 w-[92%] max-w-[1120px] h-14 lg:h-16 bg-brand-glass/65 backdrop-blur-xl border border-brand-border rounded-2xl px-5 lg:px-6 flex items-center justify-between z-50 transition-all duration-300">
-  <a href="/" class="flex items-center gap-2.5 group transition-opacity hover:opacity-90">
-    <div class="w-8 h-8 rounded-lg bg-linear-to-br from-brand-orange to-brand-yellow flex items-center justify-center">
-      <span class="text-white font-bold text-lg leading-none">T</span>
+<!-- Contenedor Principal del Navbar (#main-navbar) -->
+<nav 
+  id="main-navbar" 
+  class="fixed top-4 lg:top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-[1240px] h-16 flex items-center justify-between z-50 px-4 lg:px-6 rounded-full border border-transparent"
+>
+  
+  <!-- Logotipo Principal (Referenciado a logoTokidev.svg) -->
+  <a href="/" class="flex items-center gap-3 group transition-opacity hover:opacity-90 shrink-0">
+    <div class="h-9 w-auto flex items-center justify-center">
+      <img 
+        src="/assets/logos/logoTokidev.svg" 
+        alt="Tokidev Logo" 
+        class="h-9 w-auto object-contain" 
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="hidden items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-brand-red to-brand-orange flex items-center justify-center shadow-md shadow-brand-red/30">
+          <span class="text-white font-bold text-lg leading-none">T</span>
+        </div>
+        <span class="text-white font-extrabold text-xl tracking-tight">tokidev</span>
+      </div>
     </div>
-    <span class="text-brand-text font-bold text-lg tracking-tight">tokidev</span>
   </a>
 
-  <!-- Desktop Links -->
-  <div class="hidden lg:flex items-center gap-1">
-    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => {
-      const href = link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`;
-      return (
-        <a href={href} class="nav-link relative flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-white transition-colors rounded-lg" data-target={link.toLowerCase()}>
-          <span class="nav-dot w-1.5 h-1.5 rounded-full bg-brand-orange hidden"></span>
-          <span class="nav-text">{link}</span>
-        </a>
-      );
-    })}
+  <!-- Píldora de Navegación Central (#nav-pill) -->
+  <div 
+    id="nav-pill" 
+    class="hidden lg:flex items-center gap-1 rounded-full p-1.5 border border-transparent"
+  >
+    {navTabs.map(tab => (
+      <a 
+        href={tab.href} 
+        class="nav-tab relative flex items-center justify-center px-4 py-2 rounded-full text-[11px] font-medium tracking-[0.44px] text-[#c8c8d7] hover:text-white transition-all duration-300 uppercase" 
+        data-target={tab.target}
+      >
+        <!-- Fondo animado o gradiente activo para la pestaña seleccionada -->
+        <span class="nav-active-bg absolute inset-0 rounded-full bg-gradient-to-r from-[#DA2984] to-[#A406E9] opacity-0 transition-opacity duration-300 -z-10 shadow-sm shadow-purple-500/30"></span>
+        <span class="nav-text relative z-10">{tab.name}</span>
+      </a>
+    ))}
   </div>
 
-  <!-- Desktop CTA -->
-  <div class="hidden lg:flex items-center">
-    <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-brand-orange to-brand-yellow rounded-full text-[13px] font-semibold text-white hover:opacity-90 transition-opacity">
-      Let's talk
+  <!-- Área de Acción Derecha (Status "Disponible" y Botón CTA) -->
+  <div class="hidden lg:flex items-center gap-4 shrink-0">
+    <!-- Indicador de Estado / Disponibilidad (#status-pill) -->
+    <div 
+      id="status-pill" 
+      class="px-3.5 py-2 rounded-full flex items-center gap-2.5 text-[#c8d2d2] text-[11px] font-medium tracking-[0.22px] border border-transparent"
+    >
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span>Disponible</span>
+    </div>
+
+    <!-- Botón CTA Let's talk -->
+    <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-red to-brand-orange rounded-full text-xs font-semibold text-white hover:brightness-110 transition-all duration-300 shadow-lg shadow-brand-red/25 active:scale-95">
+      <span>Let's talk</span>
       <ArrowRight size={14} />
     </a>
   </div>
 
-  <!-- Mobile Toggle (Visible until LG) -->
-  <button id="menu-toggle" class="lg:hidden text-brand-text/70 focus:outline-none transition-colors hover:text-brand-orange">
-    <Menu size={24} id="menu-icon" />
-    <X size={24} id="close-icon" class="hidden" />
+  <!-- Botón de Menú Móvil -->
+  <button id="menu-toggle" class="lg:hidden text-white/90 focus:outline-none transition-colors hover:text-brand-orange p-2.5 flex items-center justify-center">
+    <Menu size={22} id="menu-icon" />
+    <X size={22} id="close-icon" class="hidden" />
   </button>
 </nav>
 
-<!-- Mobile Overlay (Visible until LG) -->
-<div id="mobile-menu" class="fixed inset-0 bg-brand-bg/95 backdrop-blur-2xl z-45 hidden lg:hidden">
-  <div class="flex flex-col items-center justify-center w-full h-full gap-8">
-    <div class="flex flex-col items-center gap-6">
-      {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => {
-        const href = link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`;
-        return (
-          <a href={href} class="mobile-nav-link relative flex items-center gap-2.5 text-[24px] font-bold text-brand-text/60 hover:text-white transition-colors" data-target={link.toLowerCase()}>
-            <span class="nav-dot w-2 h-2 rounded-full bg-brand-orange hidden"></span>
-            <span class="nav-text">{link}</span>
-          </a>
-        );
-      })}
-      <a href="#contact" class="mobile-link mt-4 flex items-center gap-2 px-8 py-4 bg-linear-to-r from-brand-orange to-brand-yellow rounded-full text-[16px] font-bold text-white">
-        Let's talk
+<!-- Menú Desplegable para Dispositivos Móviles -->
+<div id="mobile-menu" class="fixed inset-0 bg-brand-bg/98 backdrop-blur-3xl z-45 hidden lg:hidden transition-all duration-300">
+  <div class="flex flex-col items-center justify-between w-full h-full pt-28 pb-12 px-6">
+    <div class="flex flex-col items-center gap-3 w-full max-w-sm my-auto">
+      {navTabs.map(tab => (
+        <a 
+          href={tab.href} 
+          class="mobile-nav-tab w-full text-center py-3.5 text-base font-semibold text-white/70 hover:text-white transition-all rounded-2xl border border-white/5 bg-white/3 hover:bg-white/10 uppercase tracking-wider backdrop-blur-md" 
+          data-target={tab.target}
+        >
+          {tab.name}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex flex-col items-center gap-5 w-full max-w-sm mt-auto">
+      <div class="bg-white/5 border border-white/10 px-4 py-2.5 rounded-full flex items-center gap-2.5 text-[#c8d2d2] text-xs font-medium backdrop-blur-md">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+        </span>
+        <span>Disponible para nuevos proyectos</span>
+      </div>
+
+      <a href="#contact" class="mobile-link w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-red to-brand-orange rounded-full text-base font-bold text-white shadow-xl shadow-brand-red/30 active:scale-98">
+        <span>Let's talk</span>
         <ArrowRight size={18} />
       </a>
     </div>
@@ -60,13 +117,13 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
 </div>
 
 <script>
+  // ─── Lógica Interactiva de Navegación Móvil y Estado Activo de Rutas ───
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
-  const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-nav-link');
-  
-  const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-nav-tab');
+  const allNavTabs = document.querySelectorAll('.nav-tab, .mobile-nav-tab');
 
   function toggleMenu() {
     mobileMenu?.classList.toggle('hidden');
@@ -85,55 +142,50 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
     });
   });
 
-  // --- Active State Logic ---
-  function setActiveLink(targetId: string) {
-    allNavLinks.forEach(link => {
-      const isMobile = link.classList.contains('mobile-nav-link');
-      const dot = link.querySelector('.nav-dot');
+  // Función para activar visualmente la pestaña seleccionada consumiendo el gradiente del sistema
+  function setActiveTab(targetId: string) {
+    allNavTabs.forEach(tab => {
+      const isMobile = tab.classList.contains('mobile-nav-tab');
+      const activeBg = tab.querySelector('.nav-active-bg');
       
-      // Reset
-      link.classList.remove('text-white');
       if (isMobile) {
-        link.classList.add('text-brand-text/60');
+        if (tab.getAttribute('data-target') === targetId) {
+          tab.classList.remove('text-white/70', 'bg-white/3');
+          tab.classList.add('text-white', 'bg-gradient-to-r', 'from-[#DA2984]', 'to-[#A406E9]', 'border-transparent');
+        } else {
+          tab.classList.remove('text-white', 'bg-gradient-to-r', 'from-[#DA2984]', 'to-[#A406E9]', 'border-transparent');
+          tab.classList.add('text-white/70', 'bg-white/3');
+        }
       } else {
-        link.classList.add('text-brand-text/50');
-      }
-      if (dot) dot.classList.add('hidden');
-
-      // Set Active
-      if (link.getAttribute('data-target') === targetId) {
-        link.classList.remove('text-brand-text/50', 'text-brand-text/60');
-        link.classList.add('text-white');
-        if (dot) dot.classList.remove('hidden');
+        if (tab.getAttribute('data-target') === targetId) {
+          tab.classList.remove('text-[#c8c8d7]');
+          tab.classList.add('text-white', 'font-semibold');
+          if (activeBg) activeBg.classList.remove('opacity-0');
+        } else {
+          tab.classList.remove('text-white', 'font-semibold');
+          tab.classList.add('text-[#c8c8d7]');
+          if (activeBg) activeBg.classList.add('opacity-0');
+        }
       }
     });
   }
 
-  // Determine context
   const pathname = window.location.pathname;
-  
   if (pathname.includes('/blog')) {
-    // If we are on the blog, statically set blog as active
-    setActiveLink('blog');
+    setActiveTab('blog');
   } else {
-    // We are on the landing page, track scroll positions for sections
     const sections = document.querySelectorAll('section[id]');
-    
-    // Fallback if no sections map (defaults to none active)
     const observer = new IntersectionObserver((entries) => {
-      let activeSet = false;
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setActiveLink(entry.target.id);
-          activeSet = true;
+          setActiveTab(entry.target.id);
         }
       });
-      // If we scroll to the very top, maybe set 'about' or clear
       if (window.scrollY < 100) {
-        setActiveLink('about'); // or whichever is top
+        setActiveTab('work');
       }
     }, {
-      rootMargin: '-20% 0px -60% 0px', // Triggers when section passes mid-upper screen
+      rootMargin: '-20% 0px -60% 0px',
       threshold: 0
     });
 

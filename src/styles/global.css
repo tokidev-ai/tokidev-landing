@@ -2,33 +2,32 @@
 @source "../posts";
 
 @theme {
-  /* Main Brand Colors (Updated from Figma "Tokidev — Gradients") */
-  --color-brand-orange: #F53955; /* Cool Red */
-  --color-brand-yellow: #FA743F; /* Cool Orange */
-  --color-brand-purple: #A406E9; /* Good Purple */
+  /* ─── Colores Oficiales del Manual de Marca Tokidev ─── */
+  /* Se definen los colores primarios y secundarios exactos extraídos de las diapositivas de Figma */
+  --color-brand-red: #F43753; /* Red / Cool Red de la marca */
+  --color-brand-orange: #FF6B35; /* Orange / Naranja vibrante */
+  --color-brand-yellow: #DFB546; /* Yellow / Amarillo dorado de acento */
+  --color-brand-purple: #73388F; /* Púrpura medio */
+  --color-dark-purple: #410840; /* Púrpura oscuro para fondos atenuados */
   
-  /* Additional Palette Colors */
-  --color-cool-red: #F53955;
-  --color-cool-orange: #FA743F;
-  --color-aero-pink: #DA2984;
-  --color-good-purple: #A406E9;
-  --color-dark-purple: #131139;
-  --color-soft-shadow: #181818;
-  --color-light-shadow: #2C2C2C;
-  
-  --color-brand-bg: #0a111a;
-  --color-brand-glass: rgba(26, 16, 41, 0.6);
-  --color-brand-border: rgba(123, 94, 167, 0.15);
-  --color-brand-text: #f0eef2;
-  --color-brand-text-dim: rgba(240, 238, 242, 0.5);
+  /* Colores de soporte para componentes e interfaces */
+  --color-brand-bg: #030126; /* Fondo principal azul noche / deep navy */
+  --color-brand-glass: rgba(26, 16, 41, 0.6); /* Fondo para tarjetas traslúcidas */
+  --color-brand-border: rgba(244, 55, 83, 0.2); /* Bordes traslúcidos en tono rojo de marca */
+  --color-brand-text: #ffffff; /* Texto principal con máximo contraste */
+  --color-brand-text-dim: rgba(255, 255, 255, 0.7); /* Texto secundario */
   
   --font-inter: "Inter", sans-serif;
 
-  /* Custom Gradients from Figma */
-  --background-image-hero-title: linear-gradient(180deg, #fff 0%, #fff 50%, #A406E9 70.673%, #DA2984 85%, #FA743F 100%);
-  --background-image-hero-card: linear-gradient(107.6deg, rgba(255, 255, 255, 0.36) 1.2%, rgba(196, 196, 196, 0.06) 100%);
+  /* ─── Degradados Oficiales de Figma ─── */
+  /* Gradiente para títulos de impacto en Hero y secciones */
+  --background-image-hero-title: linear-gradient(90deg, #F43753 0%, #FF6B35 100%);
+  /* Gradiente de fondo atmosférico */
+  --background-image-brand-bg-gradient: linear-gradient(152deg, #030126 6%, #410840 58%, #AE421A 125%);
+  /* Gradiente traslúcido para tarjetas glassmorphic */
+  --background-image-hero-card: linear-gradient(107.6deg, rgba(255, 255, 255, 0.12) 1.2%, rgba(196, 196, 196, 0.03) 100%);
 
-  /* Custom Spacing from Figma */
+  /* ─── Geometría y Espaciados de Figma ─── */
   --spacing-social-size: 54px;
   --spacing-btn-px: 52px;
   --spacing-btn-py: 18px;
