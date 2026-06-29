@@ -1,11 +1,11 @@
 ---
 import {
-  ArrowRight,
   Github,
   Linkedin,
   Instagram,
   Mail,
 } from "lucide-astro";
+import Button from "./Button.astro";
 ---
 
 <section
@@ -51,14 +51,8 @@ import {
         data-hero="actions"
         class="flex flex-col items-center lg:items-start gap-6 mt-2 w-full sm:w-auto"
       >
-        <!-- Main CTA -->
-        <a
-          href="#contact"
-          class="w-full sm:w-auto flex items-center justify-center gap-2.5 px-btn-px py-btn-py bg-white rounded-full text-sm font-semibold text-[#0f121a] hover:bg-zinc-200 transition-colors"
-        >
-          Let's Talk
-          <ArrowRight size={18} />
-        </a>
+        <!-- Main CTA Común -->
+        <Button href="#contact" size="lg" class="w-full sm:w-auto">Let's Talk</Button>
 
         <!-- Social Icons -->
         <div class="flex gap-3.5 items-start">

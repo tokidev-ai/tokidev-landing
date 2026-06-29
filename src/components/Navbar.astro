@@ -1,8 +1,9 @@
 ---
 // ─── Componente Navbar (Navegación Principal) ───
 // Estructura limpia y desacoplada alineada al diseño de Figma.
-// Las propiedades de fondo, bordes traslúcidos, desfoque y sombras son gestionadas dinámicamente por animations.ts.
-import { ArrowRight, Menu, X } from 'lucide-astro';
+// Utiliza el componente común Button.astro para los botones CTA.
+import { Menu, X } from 'lucide-astro';
+import Button from './Button.astro';
 
 const navTabs = [
   { name: 'WORK', href: '/#experience', target: 'experience' },
@@ -56,7 +57,7 @@ const navTabs = [
     ))}
   </div>
 
-  <!-- Área de Acción Derecha (Status "Disponible" y Botón CTA) -->
+  <!-- Área de Acción Derecha (Status "Disponible" y Botón CTA Común) -->
   <div class="hidden lg:flex items-center gap-4 shrink-0">
     <!-- Indicador de Estado / Disponibilidad (#status-pill) -->
     <div 
@@ -70,11 +71,8 @@ const navTabs = [
       <span>Disponible</span>
     </div>
 
-    <!-- Botón CTA Let's talk -->
-    <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-red to-brand-orange rounded-full text-xs font-semibold text-white hover:brightness-110 transition-all duration-300 shadow-lg shadow-brand-red/25 active:scale-95">
-      <span>Let's talk</span>
-      <ArrowRight size={14} />
-    </a>
+    <!-- Botón CTA Común Let's talk -->
+    <Button href="#contact" size="sm">Let's talk</Button>
   </div>
 
   <!-- Botón de Menú Móvil -->
@@ -108,10 +106,8 @@ const navTabs = [
         <span>Disponible para nuevos proyectos</span>
       </div>
 
-      <a href="#contact" class="mobile-link w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-red to-brand-orange rounded-full text-base font-bold text-white shadow-xl shadow-brand-red/30 active:scale-98">
-        <span>Let's talk</span>
-        <ArrowRight size={18} />
-      </a>
+      <!-- Botón CTA Común para Móvil -->
+      <Button href="#contact" size="lg" class="mobile-link w-full">Let's talk</Button>
     </div>
   </div>
 </div>

@@ -1,0 +1,59 @@
+---
+// ─── Componente Reutilizable Button.astro ───
+// Botón de acción principal reutilizable en múltiples páginas.
+// Integra los gradientes oficiales, micro-interacciones de hover y un border-radius ajustado (rounded-xl / 12px) según el Manual de Marca de Figma.
+import { ArrowRight } from 'lucide-astro';
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  showArrow?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  showArrow = true,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Clases base con border-radius modificado (rounded-xl / 12px) según lo solicitado
+const baseClasses = 'inline-flex items-center justify-center gap-2.5 font-semibold transition-all duration-300 rounded-xl cursor-pointer active:scale-95 select-none';
+
+// Variantes de estilo consumiendo los tokens globales
+const variantClasses = {
+  primary: 'bg-gradient-to-r from-brand-red to-brand-orange text-white hover:brightness-110 shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40',
+  secondary: 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-md',
+  outline: 'bg-transparent text-white border-2 border-brand-red/80 hover:bg-brand-red/10',
+};
+
+// Tamaños estandarizados
+const sizeClasses = {
+  sm: 'px-4 py-2 text-xs',
+  md: 'px-5 py-2.5 text-xs lg:text-sm',
+  lg: 'px-7 py-3.5 text-sm lg:text-base',
+};
+
+const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+---
+
+{
+  href ? (
+    <a href={href} class={combinedClasses} {...rest}>
+      <slot />
+      {showArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
+    </a>
+  ) : (
+    <button type={type} class={combinedClasses} {...rest}>
+      <slot />
+      {showArrow && <ArrowRight size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} class="transition-transform group-hover:translate-x-0.5" />}
+    </button>
+  )
+}
