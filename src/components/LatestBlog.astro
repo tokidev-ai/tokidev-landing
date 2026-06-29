@@ -1,0 +1,115 @@
+---
+// ─── Componente Del Blog / Acceso Directo ───
+// Implementación fidelizada al nodo 66:1065 de Figma.
+// Muestra el artículo destacado principal a la izquierda y dos artículos secundarios apilados a la derecha, con botón de acceso a /blog.
+import Button from './Button.astro';
+---
+
+<section id="blog-preview" class="py-16 lg:py-24 w-full flex flex-col items-center">
+  <!-- Cabecera de la Sección según Figma (nodo 66:1066) -->
+  <div class="w-full flex flex-col gap-3.5 items-start mb-10">
+    <p class="font-mono font-medium text-xs tracking-[0.24px] text-[#DA2984] uppercase">
+      09 — DEL BLOG
+    </p>
+    <h2 class="font-bold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight">
+      Notas desde la trinchera.
+    </h2>
+  </div>
+
+  <!-- Grid de Artículos Recientes (nodo 66:1069) -->
+  <div class="w-full flex flex-col lg:flex-row gap-6 items-stretch mb-8">
+    
+    <!-- Artículo Principal Destacado (Figma 66:1070) -->
+    <a 
+      href="/blog/post-1" 
+      class="flex-1 min-h-[380px] lg:min-h-[440px] rounded-[20px] overflow-hidden relative p-7 sm:p-9 flex flex-col justify-end group transition-all duration-500 hover:scale-[1.01] shadow-2xl shadow-purple-950/30"
+      style="background: linear-gradient(147.848deg, rgb(115, 26, 199) 14.085%, rgb(242, 107, 56) 84.507%)"
+    >
+      <!-- Gradiente Oscuro de fondo para legibilidad -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-[#050510]/90 z-0"></div>
+
+      <!-- Contenido del Artículo Destacado -->
+      <div class="relative z-10 flex flex-col items-start gap-3">
+        <div class="bg-black/40 border border-white/25 px-3 py-1 rounded-full backdrop-blur-md">
+          <span class="font-mono font-semibold text-[10.5px] text-white tracking-[0.315px] uppercase">
+            DISTRIBUTED SYSTEMS
+          </span>
+        </div>
+
+        <h3 class="font-bold text-2xl sm:text-3xl lg:text-[30px] text-white leading-snug tracking-tight group-hover:text-white/90 transition-colors">
+          Designing solveOS: a distributed problem-solving runtime
+        </h3>
+
+        <div class="w-full flex items-center justify-between pt-2 text-xs font-mono text-white/70">
+          <span>APR 10, 2026 · 12 MIN READ</span>
+          <div class="flex items-center gap-1.5 text-sm font-sans font-semibold text-white group-hover:translate-x-1 transition-transform duration-300">
+            <span>Leer</span>
+            <span>→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Columna Derecha de Artículos Secundarios Apilados (Figma 66:1082) -->
+    <div class="lg:w-[396px] shrink-0 flex flex-col gap-6">
+      
+      <!-- Artículo Secundario 1 (Figma 66:1083) -->
+      <a 
+        href="/blog/post-2" 
+        class="flex-1 min-h-[195px] rounded-[20px] overflow-hidden relative p-6 sm:p-7 flex flex-col justify-end group transition-all duration-500 hover:scale-[1.01] shadow-xl shadow-purple-950/20"
+        style="background: linear-gradient(152.289deg, rgb(46, 41, 140) 14.085%, rgb(158, 26, 133) 84.507%)"
+      >
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-[#050510]/85 z-0"></div>
+
+        <div class="relative z-10 flex flex-col items-start gap-2.5">
+          <div class="bg-black/40 border border-white/25 px-3 py-1 rounded-full backdrop-blur-md">
+            <span class="font-mono font-semibold text-[10px] text-white tracking-[0.315px] uppercase">
+              ENGINEERING
+            </span>
+          </div>
+
+          <h4 class="font-bold text-lg sm:text-[18px] text-white leading-snug tracking-tight group-hover:text-white/90 transition-colors">
+            Why most "microservices" migrations fail
+          </h4>
+
+          <span class="font-mono text-[11px] text-white/70">APR 02, 2026 · 9 MIN</span>
+        </div>
+      </a>
+
+      <!-- Artículo Secundario 2 (Figma 66:1092) -->
+      <a 
+        href="/blog/post-3" 
+        class="flex-1 min-h-[195px] rounded-[20px] overflow-hidden relative p-6 sm:p-7 flex flex-col justify-end group transition-all duration-500 hover:scale-[1.01] shadow-xl shadow-purple-950/20"
+        style="background: linear-gradient(152.289deg, rgb(199, 33, 102) 14.085%, rgb(250, 128, 56) 84.507%)"
+      >
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-[#050510]/85 z-0"></div>
+
+        <div class="relative z-10 flex flex-col items-start gap-2.5">
+          <div class="bg-black/40 border border-white/25 px-3 py-1 rounded-full backdrop-blur-md">
+            <span class="font-mono font-semibold text-[10px] text-white tracking-[0.315px] uppercase">
+              CAREER
+            </span>
+          </div>
+
+          <h4 class="font-bold text-lg sm:text-[18px] text-white leading-snug tracking-tight group-hover:text-white/90 transition-colors">
+            From mid to staff: skills nobody writes down
+          </h4>
+
+          <span class="font-mono text-[11px] text-white/70">MAR 24, 2026 · 7 MIN</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- Fila Inferior con Leyenda y Botón de Enlace a /blog (Figma 66:1101) -->
+  <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+    <p class="text-[#a0a0b4] text-sm font-medium">
+      Ensayos y postmortems sobre ingeniería, sistemas distribuidos y carrera.
+    </p>
+    <Button href="/blog" variant="secondary" size="md" class="shrink-0">
+      Ver todo el blog
+    </Button>
+  </div>
+</section>

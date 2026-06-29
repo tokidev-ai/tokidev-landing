@@ -1,0 +1,89 @@
+---
+/**
+ * Mentorship.astro
+ * Componente de la sección 07 — Mentorías 1:1.
+ * Desacopla la estructura de datos importando mentorshipTracks desde src/data/mentorship.ts.
+ * Explica por qué se organizan en 3 columnas responsivas con separadores sutiles para ofrecer máxima claridad.
+ */
+import { ArrowRight } from 'lucide-astro';
+import { mentorshipTracks } from '../data/mentorship';
+
+---
+
+<section id="mentorship" class="py-16 lg:py-24 w-full flex flex-col items-center">
+  <!-- Cabecera de la Sección según Figma (nodo 66:923) -->
+  <div class="w-full flex flex-col gap-3.5 items-start mb-12">
+    <p class="font-mono font-medium text-xs tracking-[0.24px] text-[#DA2984] uppercase">
+      07 — MENTORÍAS
+    </p>
+    <h2 class="font-bold text-3xl sm:text-4xl lg:text-[48px] text-white tracking-tight leading-tight max-w-[740px]">
+      Mentorías 1:1 que aceleran tu carrera.
+    </h2>
+    <p class="text-[#a0a0b4] text-base sm:text-[17px] leading-relaxed max-w-[640px]">
+      Acompañamiento directo con Rodrigo en una plataforma aparte: sesiones en vivo, revisión de código real y un plan a tu medida.
+    </p>
+  </div>
+
+  <!-- Tracks de Formación desacoplados desde la fuente de datos -->
+  <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 items-stretch relative mb-12">
+    {mentorshipTracks.map((track, idx) => (
+      <div class={`flex flex-col justify-between items-start gap-4 lg:px-8 ${idx === 0 ? 'lg:pl-0' : ''} ${idx === mentorshipTracks.length - 1 ? 'lg:pr-0' : ''} relative`}>
+        <!-- Ícono en contenedor de gradiente magenta-púrpura -->
+        <div class="w-11 h-11 rounded-[12px] bg-gradient-to-r from-[#DA2984] to-[#A406E9] flex items-center justify-center shrink-0 shadow-md shadow-purple-900/30">
+          <span class="font-bold text-base text-white">{track.iconLabel}</span>
+        </div>
+
+        <!-- Contenido principal del Track -->
+        <div class="flex flex-col gap-2.5 my-2">
+          <h3 class="font-semibold text-lg sm:text-[19px] text-white tracking-tight">
+            {track.title}
+          </h3>
+          <p class="text-[#a0a0b4] text-sm leading-relaxed">
+            {track.description}
+          </p>
+        </div>
+
+        <!-- Etiqueta de Duración -->
+        <p class="font-mono font-medium text-[11px] text-[#DA2984] tracking-[0.33px] uppercase pt-2">
+          {track.duration}
+        </p>
+
+        <!-- Divisor Vertical para Pantallas Escritorio -->
+        {idx < mentorshipTracks.length - 1 && (
+          <div class="hidden lg:block absolute right-0 top-0 bottom-0 w-px bg-white/8"></div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <!-- Bloque CTA de Mentorías hacia el sitio externo (nodo 66:951) -->
+  <div class="w-full flex flex-col gap-6 pt-4">
+    <div class="w-full h-px bg-white/10"></div>
+
+    <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="flex flex-col gap-1.5 max-w-xl">
+        <h4 class="font-semibold text-xl sm:text-[22px] text-white tracking-tight">
+          ¿List@ para empezar tu mentoría 1:1?
+        </h4>
+        <p class="text-[#a0a0b4] text-sm sm:text-[15px]">
+          Reserva tu cupo en la plataforma de mentorías de Tokidev — es un sitio aparte.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-start sm:items-end gap-2 shrink-0">
+        <a 
+          href="https://mentorias.tokidev.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-[12px] bg-gradient-to-r from-[#DA2984] to-[#A406E9] text-white text-[15px] font-semibold hover:brightness-110 shadow-lg shadow-purple-900/30 transition-all cursor-pointer active:scale-95 select-none"
+        >
+          <span>Ver mentorías</span>
+          <ArrowRight size={18} class="font-bold" />
+        </a>
+        <span class="font-mono font-medium text-[11px] text-[#a0a0b4] tracking-[0.22px] uppercase pr-1">
+          SITIO EXTERNO ↗
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

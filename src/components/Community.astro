@@ -1,36 +1,40 @@
 ---
+/**
+ * Community.astro
+ * Componente de la sección 05 — Community & Awards.
+ * Desacopla la fuente de datos importando communityAwards desde src/data/community.ts y mapea dinámicamente los íconos de lucide-astro.
+ */
 import CommunityCard from './CommunityCard.astro';
+import { communityAwards } from '../data/community';
+import { Users, Globe, Trophy, Zap } from 'lucide-astro';
 
-const awards = [
-  {
-    title: "Angular Bolivia",
-    description: "Community Lead & Technical Speaker. Organizing monthly meetups and workshops for 500+ developers.",
-    color: "#ef6c4a"
-  },
-  {
-    title: "GDG Cochabamba",
-    description: "Google Developer Group contributor, focusing on Cloud and Fullstack development tracks.",
-    color: "#7b5ea7"
-  }
-];
+const iconMap = {
+  Users,
+  Globe,
+  Trophy,
+  Zap
+};
 ---
 
-<section id="community" class="py-20 flex justify-center">
-  <div class="w-full flex flex-col items-end">
-    
-    <!-- Section Header -->
-    <div class="w-full flex items-center justify-end gap-2 mb-10">
-      <div class="h-px w-10 bg-linear-to-r from-brand-orange to-transparent"></div>
-      <span class="font-mono font-medium text-[#ff8a5c] text-sm tracking-[2.88px] uppercase">
-        COMMUNITY & AWARDS
-      </span>
-    </div>
+<section id="community" class="py-16 lg:py-24 w-full flex flex-col items-center">
+  <!-- Cabecera de la Sección según Figma (nodo 66:1037) -->
+  <div class="w-full flex flex-col gap-2.5 items-start mb-10">
+    <p class="font-mono font-medium text-xs tracking-[0.6px] bg-clip-text text-transparent bg-gradient-to-r from-[#DA2984] to-[#A406E9] uppercase">
+      05 — COMMUNITY & AWARDS
+    </p>
+    <h2 class="font-bold text-3xl sm:text-4xl lg:text-[40px] text-white tracking-tight">
+      Beyond the code.
+    </h2>
+  </div>
 
-    <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-      {awards.map(award => (
-        <CommunityCard {...award} />
-      ))}
-    </div>
+  <!-- Grid Responsivo de 4 Tarjetas de Comunidad (nodo 66:1040) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
+    {communityAwards.map(award => (
+      <CommunityCard 
+        title={award.title}
+        description={award.description}
+        icon={iconMap[award.iconName]}
+      />
+    ))}
   </div>
 </section>

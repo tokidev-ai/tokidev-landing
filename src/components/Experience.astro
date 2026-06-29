@@ -1,58 +1,58 @@
 ---
+// ─── Componente Experience (Carrera Profesional / Timeline) ───
+// Implementación fidelizada al nodo 66:990 de Figma.
+// Rediseñado como una línea de tiempo vertical fluida con marcadores, badges y tarjetas de rol responsivas.
 import ExperienceCard from "./ExperienceCard.astro";
 
 const experiences = [
   {
     company: "Unosquare",
     role: "Senior Software Engineer",
-    period: "2021 — Present",
-    description:
-      "Leading enterprise transformation through scalable cloud architectures.",
-    color: "#ef6c4a",
+    period: "2021 — PRESENT",
+    description: "Leading enterprise transformation through scalable cloud architectures.",
     isCurrent: true,
+    logoInitial: "U",
+    logoColor: "from-[#FA743F] to-[#DA2984]"
   },
   {
     company: "NICE CXone",
     role: "Fullstack Engineer",
     period: "2019 — 2021",
-    description:
-      "Building real-time communication platforms for global enterprise.",
-    color: "#f5a623",
+    description: "Building real-time communication platforms for global enterprise.",
+    isCurrent: false,
+    logoInitial: "N",
+    logoColor: "from-[#DA2984] to-[#A406E9]"
   },
   {
     company: "Special Tours",
     role: "Software Developer",
     period: "2017 — 2019",
-    description:
-      "Engineering complex booking engines for the European travel market.",
-    color: "#7b5ea7",
-  },
+    description: "Engineering complex booking engines for the European travel market.",
+    isCurrent: false,
+    logoInitial: "S",
+    logoColor: "from-[#A406E9] to-[#5014A0]"
+  }
 ];
 ---
 
-<section id="experience" class="py-12 md:py-20 flex justify-center">
-  <div class="w-full flex flex-col items-center">
-    <!-- Section Header -->
-    <div class="w-full flex flex-col items-start lg:items-end mb-12 md:mb-16">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="h-px w-10 bg-linear-to-r from-brand-orange to-transparent">
-        </div>
-        <span
-          class="font-mono font-medium text-[#ff8a5c] text-sm tracking-[2.88px] uppercase"
-        >
-          EXPERIENCE
-        </span>
-      </div>
-      <h2
-        class="text-[32px] md:text-[38px] font-bold tracking-[-0.76px] text-white/80"
-      >
-        Where I've shipped.
-      </h2>
-    </div>
+<section id="experience" class="py-16 lg:py-24 w-full flex flex-col items-center">
+  <!-- Cabecera de la Sección según Figma (nodo 66:991) -->
+  <div class="w-full flex flex-col gap-2.5 items-start mb-12">
+    <p class="font-mono font-medium text-xs tracking-[0.6px] bg-clip-text text-transparent bg-gradient-to-r from-[#DA2984] to-[#A406E9] uppercase">
+      04 — EXPERIENCE
+    </p>
+    <h2 class="font-bold text-3xl sm:text-4xl lg:text-[40px] text-white tracking-tight">
+      Where I’ve shipped.
+    </h2>
+  </div>
 
-    <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-      {experiences.map((exp) => <ExperienceCard {...exp} />)}
-    </div>
+  <!-- Línea de Tiempo / Timeline (nodo 66:994) -->
+  <div class="w-full flex flex-col items-start relative">
+    {experiences.map((exp, idx) => (
+      <ExperienceCard 
+        {...exp} 
+        isLast={idx === experiences.length - 1} 
+      />
+    ))}
   </div>
 </section>
