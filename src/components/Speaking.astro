@@ -1,0 +1,173 @@
+---
+// ─── Componente Speaking (Conferencias y Charlas) ───
+// Implementación fidelizada al nodo 66:485 de Figma.
+// consume los datos desde src/data/talks.ts, ubica la navegación abajo y ofrece una transición líquida sin desfases.
+import { ChevronLeft, ChevronRight } from 'lucide-astro';
+import { talks } from '../data/talks';
+---
+
+<section id="speaking" class="py-16 lg:py-24 w-full flex flex-col items-center">
+  <!-- Cabecera de la Sección según Figma -->
+  <div class="w-full flex flex-col gap-2.5 items-start mb-8">
+    <p class="font-mono font-medium text-xs tracking-[0.6px] bg-clip-text text-transparent bg-gradient-to-r from-[#DA2984] to-[#A406E9] uppercase">
+      03 — SPEAKING & TALKS
+    </p>
+    <h2 class="font-bold text-3xl sm:text-4xl text-white tracking-tight">
+      Conferences & workshops.
+    </h2>
+  </div>
+
+  <!-- Carrusel de Charlas (Viewport & Track) -->
+  <div class="w-full overflow-hidden relative rounded-[24px]">
+    <div 
+      id="speaking-track" 
+      class="flex gap-6 transition-transform duration-500 ease-out w-full"
+    >
+      {talks.map((talk) => (
+        <div class="w-full shrink-0 bg-white/[0.03] border border-white/[0.09] rounded-[24px] overflow-hidden flex flex-col lg:flex-row items-stretch shadow-2xl shadow-purple-950/20">
+          
+          <!-- Stub de Fecha Izquierda (Figma 66:489 - Gradiente Púrpura a Naranja) -->
+          <div 
+            class="lg:w-[280px] shrink-0 p-8 sm:p-10 flex flex-col items-center justify-center text-center gap-2 relative overflow-hidden"
+            style="background: linear-gradient(247.743deg, rgb(164, 6, 233) 13.397%, rgb(218, 41, 132) 50%, rgb(250, 116, 63) 86.603%)"
+          >
+            <p class="font-mono font-medium text-xs text-white/90 tracking-[0.72px] uppercase">
+              {talk.monthYear}
+            </p>
+            <p class="font-bold text-7xl sm:text-8xl text-white tracking-tighter leading-none my-1">
+              {talk.day}
+            </p>
+            <div class="w-14 h-[2px] bg-white/50 my-1"></div>
+            <p class="font-semibold text-sm text-white">
+              {talk.attendees}
+            </p>
+            <p class="font-medium text-xs text-white/85">
+              {talk.venue}
+            </p>
+          </div>
+
+          <!-- Detalles de la Charla Derecha (Figma 66:495) -->
+          <div class="flex-1 p-8 sm:p-11 flex flex-col justify-between items-start gap-5">
+            <!-- Meta Info: Organizador y Evento -->
+            <div class="flex flex-wrap items-center gap-2.5 text-sm">
+              <span class="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#FA743F] to-[#DA2984]">
+                {talk.organizer}
+              </span>
+              <span class="text-[#a0a0b4]">•</span>
+              <span class="font-medium text-[#a0a0b4]">
+                {talk.event}
+              </span>
+            </div>
+
+            <!-- Título y Subtítulo -->
+            <div class="flex flex-col gap-2">
+              <h3 class="font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-snug">
+                {talk.title}
+              </h3>
+              <p class="font-semibold text-base text-[#d2d2e1] leading-relaxed">
+                {talk.subtitle}
+              </p>
+            </div>
+
+            <!-- Descripción Amplia -->
+            <p class="text-[#a0a0b4] text-sm sm:text-base leading-relaxed">
+              {talk.description}
+            </p>
+
+            <!-- Tags / Chips -->
+            <div class="flex flex-wrap gap-2 pt-2">
+              {talk.tags.map((tag) => (
+                <div class="bg-white/5 border border-[#DA2984] px-3 py-1 rounded-full backdrop-blur-sm">
+                  <span class="font-mono font-medium text-[11px] text-[#d7d7e6] tracking-[0.22px] uppercase">
+                    {tag}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Barra de Controles e Indicadores Ubicada Abajo del Carrusel -->
+  <div class="w-full flex items-center justify-between mt-6 px-2">
+    <!-- Indicadores de Diapositiva (Dots) -->
+    <div class="flex items-center gap-2" id="speaking-dots">
+      {talks.map((_, idx) => (
+        <button 
+          class="speaking-dot w-2.5 h-2.5 rounded-full bg-white/20 transition-all duration-300 cursor-pointer"
+          data-index={idx}
+          aria-label={`Ir a la charla ${idx + 1}`}
+        ></button>
+      ))}
+    </div>
+
+    <!-- Botones de Navegación del Carrusel -->
+    <div class="flex items-center gap-3 shrink-0">
+      <button 
+        id="speaking-prev" 
+        class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer active:scale-95 shadow-md"
+        aria-label="Anterior charla"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      <button 
+        id="speaking-next" 
+        class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer active:scale-95 shadow-md"
+        aria-label="Siguiente charla"
+      >
+        <ChevronRight size={20} />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ─── Lógica de Navegación Interactiva del Carrusel sin Desfases ───
+  const track = document.getElementById('speaking-track');
+  const prevBtn = document.getElementById('speaking-prev');
+  const nextBtn = document.getElementById('speaking-next');
+  const dots = document.querySelectorAll('.speaking-dot');
+  let currentIndex = 0;
+  const totalSlides = 3;
+
+  function updateCarousel() {
+    if (track) {
+      // Se utiliza calc() considerando el gap de 1.5rem (24px) entre slides para evitar cualquier tipo de bug o desalineación
+      track.style.transform = `translateX(calc(-${currentIndex} * (100% + 1.5rem)))`;
+    }
+    dots.forEach((dot, idx) => {
+      if (idx === currentIndex) {
+        dot.classList.remove('bg-white/20', 'w-2.5');
+        dot.classList.add('bg-gradient-to-r', 'from-[#FA743F]', 'to-[#DA2984]', 'w-8');
+      } else {
+        dot.classList.remove('bg-gradient-to-r', 'from-[#FA743F]', 'to-[#DA2984]', 'w-8');
+        dot.classList.add('bg-white/20', 'w-2.5');
+      }
+    });
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+  });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const index = parseInt(target.getAttribute('data-index') || '0', 10);
+      currentIndex = index;
+      updateCarousel();
+    });
+  });
+
+  // Inicialización del estado visual de los dots
+  updateCarousel();
+</script>
