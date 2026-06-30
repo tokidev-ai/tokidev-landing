@@ -177,7 +177,7 @@ function initSectionReveals() {
 
   // 9. Del Blog (Acceso directo)
   revealOnScroll(document.querySelectorAll<HTMLElement>('#blog-preview h2, #blog-preview p:first-of-type'), { y: 20 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#blog-preview a'), { y: 40, delay: 0.15, stagger: 0.12 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#blog-preview a[href^="/blog/post"]'), { y: 32, delay: 0.15, stagger: 0.12 });
 
   // 10. CTA Final
   revealOnScroll(document.querySelectorAll<HTMLElement>('#contact h2, #contact p, #contact a'), { y: 30, stagger: 0.1, duration: 0.75 });
@@ -195,7 +195,7 @@ function initSectionReveals() {
 
 function initCardHovers() {
   // Elevación elástica suave para tarjetas del Blog
-  document.querySelectorAll<HTMLElement>('.blog-card-element, #blog-preview a').forEach((card) => {
+  document.querySelectorAll<HTMLElement>('.blog-card-element').forEach((card) => {
     hover(card, () => {
       animate(card, { transform: 'translateY(-6px)' }, { duration: 0.35, ease: EASE_SOFT });
       return () => animate(card, { transform: 'translateY(0px)' }, { duration: 0.3, ease: EASE_SOFT });
