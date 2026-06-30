@@ -9,8 +9,8 @@ const navTabs = [
   { name: 'WORK', href: '/#projects', target: 'projects' },
   { name: 'SPEAKING', href: '/#speaking', target: 'speaking' },
   { name: 'MENTORSHIP', href: '/#mentorship', target: 'mentorship' },
-  { name: 'WRITING', href: '/blog', target: 'writing' },
   { name: 'CONTACT', href: '/#contact', target: 'contact' },
+  { name: 'BLOG', href: '/blog', target: 'blog' },
 ];
 ---
 
@@ -167,7 +167,7 @@ const navTabs = [
 
   const pathname = window.location.pathname;
   if (pathname.includes('/blog')) {
-    setActiveTab('writing');
+    setActiveTab('blog');
   } else {
     const sections = document.querySelectorAll('section[id]');
     

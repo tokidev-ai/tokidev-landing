@@ -16,7 +16,7 @@ const EASE_SOFT = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 function revealOnScroll(
   elements: NodeListOf<HTMLElement> | HTMLElement[],
-  { y = 32, delay = 0, stagger = 0.09, duration = 0.7 } = {}
+  { y = 24, delay = 0, stagger = 0.08, duration = 0.8 } = {}
 ) {
   const els = Array.from(elements);
   if (!els.length) return;
@@ -27,7 +27,7 @@ function revealOnScroll(
     el.style.transform = `translateY(${y}px)`;
   });
 
-  // Se activa la animación únicamente cuando los elementos entran en el área visible
+  // Se activa la animación de tipo spring (física elástica) al entrar al Viewport
   els.forEach((el, i) => {
     inView(
       el,
@@ -35,10 +35,16 @@ function revealOnScroll(
         animate(
           el,
           { opacity: 1, transform: 'translateY(0px)' },
-          { duration, delay: delay + i * stagger, ease: EASE_OUT }
+          { 
+            type: 'spring',
+            stiffness: 65,  // Rigidez moderada para una entrada grácil
+            damping: 16,    // Amortiguación que evita rebotes secos o bruscos
+            mass: 1.1,      // Inercia física realista
+            delay: delay + i * stagger
+          }
         );
       },
-      { amount: 0.12 }
+      { amount: 0.1 }
     );
   });
 }
@@ -88,33 +94,34 @@ function initNavbar() {
     const statusPill = document.getElementById('status-pill');
     if (!nav) return;
 
-    // Se calcula el progreso continuo t (de 0 a 1) en un rango extendido de 0px a 150px de scroll
-    const scrollDistance = 150;
+    // Se calcula el progreso continuo t (de 0 a 1) en un rango dinámico corto de 120px de scroll
+    const scrollDistance = 120;
     const rawT = Math.min(1, Math.max(0, window.scrollY / scrollDistance));
-    // Curva cúbica smoothstep para garantizar un deslizamiento verdaderamente líquido
-    const t = rawT * rawT * (3 - 2 * rawT);
-    const invT = 1 - t;
+    
+    const t = rawT;
+    // Atenuación cuadrática exponencial (Math.pow) para una desaparición mucho más suave y fluida
+    const invT = Math.pow(Math.max(0, 1 - t * 1.6), 1.5);
 
     // 1. Interpolación para el contenedor principal del Navbar (#main-navbar)
-    nav.style.backgroundColor = `rgba(26, 16, 41, ${(0.82 * t).toFixed(3)})`;
-    nav.style.backdropFilter = `blur(${(24 * t).toFixed(1)}px) saturate(${(1 + 0.5 * t).toFixed(2)})`;
+    nav.style.backgroundColor = `rgba(26, 16, 41, ${(0.85 * t).toFixed(3)})`;
+    nav.style.backdropFilter = `blur(${(20 * t).toFixed(1)}px) saturate(${(1 + 0.4 * t).toFixed(2)})`;
     nav.style.borderColor = `rgba(255, 255, 255, ${(0.12 * t).toFixed(3)})`;
-    nav.style.boxShadow = `0 ${(20 * t).toFixed(1)}px ${(50 * t).toFixed(1)}px rgba(0, 0, 0, ${(0.5 * t).toFixed(3)})`;
+    nav.style.boxShadow = `0 ${(16 * t).toFixed(1)}px ${(40 * t).toFixed(1)}px rgba(0, 0, 0, ${(0.4 * t).toFixed(3)})`;
 
-    // 2. Interpolación inversa para la píldora central (#nav-pill) para que se integre al contenedor
+    // 2. Interpolación inversa para la píldora central (#nav-pill)
     if (navPill) {
-      navPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.04 * invT).toFixed(3)})`;
-      navPill.style.borderColor = `rgba(255, 255, 255, ${(0.09 * invT).toFixed(3)})`;
-      navPill.style.backdropFilter = invT > 0.01 ? `blur(${(12 * invT).toFixed(1)}px)` : 'none';
-      navPill.style.boxShadow = `0 ${(10 * invT).toFixed(1)}px ${(25 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.2 * invT).toFixed(3)})`;
+      navPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.05 * invT).toFixed(3)})`;
+      navPill.style.borderColor = `rgba(255, 255, 255, ${(0.08 * invT).toFixed(3)})`;
+      navPill.style.backdropFilter = invT > 0.05 ? `blur(${(10 * invT).toFixed(1)}px)` : 'none';
+      navPill.style.boxShadow = `0 ${(6 * invT).toFixed(1)}px ${(15 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.1 * invT).toFixed(3)})`;
     }
 
     // 3. Interpolación inversa para el indicador de disponibilidad (#status-pill)
     if (statusPill) {
-      statusPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.04 * invT).toFixed(3)})`;
+      statusPill.style.backgroundColor = `rgba(255, 255, 255, ${(0.05 * invT).toFixed(3)})`;
       statusPill.style.borderColor = `rgba(255, 255, 255, ${(0.08 * invT).toFixed(3)})`;
-      statusPill.style.backdropFilter = invT > 0.01 ? `blur(${(12 * invT).toFixed(1)}px)` : 'none';
-      statusPill.style.boxShadow = `0 ${(4 * invT).toFixed(1)}px ${(15 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.1 * invT).toFixed(3)})`;
+      statusPill.style.backdropFilter = invT > 0.05 ? `blur(${(10 * invT).toFixed(1)}px)` : 'none';
+      statusPill.style.boxShadow = `0 ${(4 * invT).toFixed(1)}px ${(10 * invT).toFixed(1)}px rgba(0, 0, 0, ${(0.08 * invT).toFixed(3)})`;
     }
 
     ticking = false;
@@ -134,25 +141,46 @@ function initNavbar() {
 // ─── Revelado por Secciones ───────────────────────────────────────────────────
 
 function initSectionReveals() {
-  // Sección Experiencia
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#experience h2, #experience span.uppercase'), { y: 20, duration: 0.55 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#experience .grid > *'), { y: 44, delay: 0.15, stagger: 0.1 });
+  // 1. Capabilities
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#capabilities h2, #capabilities p:first-of-type'), { y: 20, duration: 0.55 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#capabilities .flex-col.lg\\:flex-row > div'), { y: 36, delay: 0.15, stagger: 0.1 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#capabilities .grid > div'), { y: 32, delay: 0.2, stagger: 0.08 });
 
-  // Sección Proyectos
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#projects [data-section-label]'), { y: 20 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#projects .w-full.mt-0'), { y: 52, delay: 0.1, duration: 0.85 });
+  // 2. Proyectos
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#projects h2, #projects p:first-of-type'), { y: 20 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#projects .w-full > div'), { y: 44, delay: 0.12, duration: 0.8 });
 
-  // Sección Comunidad
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#community span.uppercase'), { y: 20 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#community .grid > *'), { y: 40, delay: 0.12, stagger: 0.12 });
+  // 3. Speaking
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#speaking h2, #speaking p:first-of-type'), { y: 20 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#speaking-track'), { y: 40, delay: 0.15, duration: 0.75 });
 
-  // Sección Testimonios
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#testimonials h2, #testimonials p'), { y: 28, duration: 0.65 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#testimonials .rounded-\\[32px\\]'), { y: 40, delay: 0.2, stagger: 0.15 });
+  // 4. Experiencia (Timeline)
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#experience h2, #experience p:first-of-type'), { y: 20, duration: 0.55 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#experience .flex.gap-4.sm\\:gap-7'), { y: 36, delay: 0.15, stagger: 0.12 });
 
-  // Sección CTA y Contacto
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#contact h2'), { y: 36, duration: 0.8 });
-  revealOnScroll(document.querySelectorAll<HTMLElement>('#contact a.rounded-full'), { y: 20, delay: 0.2, duration: 0.6 });
+  // 5. Comunidad
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#community h2, #community p:first-of-type'), { y: 20 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#community .grid > div'), { y: 36, delay: 0.12, stagger: 0.1 });
+
+  // 6. Testimonios
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#testimonials h2, #testimonials p:first-of-type'), { y: 20, duration: 0.6 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#testimonials .grid > div'), { y: 36, delay: 0.15, stagger: 0.12 });
+
+  // 7. Mentorías
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#mentorship h2, #mentorship p:first-of-type'), { y: 20 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#mentorship .grid > div'), { y: 36, delay: 0.12, stagger: 0.1 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#mentorship .w-full.flex-col.gap-6'), { y: 30, delay: 0.2 });
+
+  // 8. Recursos Gratis
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#resources p:first-of-type, #resources h2, #resources p:nth-of-type(2), #resources .flex-col.items-start.gap-2'), { y: 20, stagger: 0.08 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#resources .animate-floating'), { y: 32, delay: 0.2, stagger: 0.08 });
+
+  // 9. Del Blog (Acceso directo)
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#blog-preview h2, #blog-preview p:first-of-type'), { y: 20 });
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#blog-preview a'), { y: 40, delay: 0.15, stagger: 0.12 });
+
+  // 10. CTA Final
+  revealOnScroll(document.querySelectorAll<HTMLElement>('#contact h2, #contact p, #contact a'), { y: 30, stagger: 0.1, duration: 0.75 });
 
   // Blog índice y vista individual
   revealOnScroll(document.querySelectorAll<HTMLElement>('.blog-card-element'), { y: 36, stagger: 0.07, duration: 0.6 });
@@ -167,34 +195,42 @@ function initSectionReveals() {
 
 function initCardHovers() {
   // Elevación elástica suave para tarjetas del Blog
-  document.querySelectorAll<HTMLElement>('.blog-card-element').forEach((card) => {
+  document.querySelectorAll<HTMLElement>('.blog-card-element, #blog-preview a').forEach((card) => {
     hover(card, () => {
-      animate(card, { transform: 'translateY(-8px)' }, { duration: 0.35, ease: EASE_SOFT });
+      animate(card, { transform: 'translateY(-6px)' }, { duration: 0.35, ease: EASE_SOFT });
       return () => animate(card, { transform: 'translateY(0px)' }, { duration: 0.3, ease: EASE_SOFT });
     });
   });
 
   // Micro-escalado para Testimonios
-  document.querySelectorAll<HTMLElement>('#testimonials .rounded-\\[32px\\]').forEach((card) => {
+  document.querySelectorAll<HTMLElement>('#testimonials .grid > div').forEach((card) => {
     hover(card, () => {
-      animate(card, { transform: 'scale(1.025)' }, { duration: 0.35, ease: EASE_SOFT });
+      animate(card, { transform: 'scale(1.02)' }, { duration: 0.35, ease: EASE_SOFT });
       return () => animate(card, { transform: 'scale(1)' }, { duration: 0.28, ease: EASE_SOFT });
     });
   });
 
   // Elevación sutil para tarjetas de Comunidad
-  document.querySelectorAll<HTMLElement>('#community .rounded-\\[20px\\]').forEach((card) => {
+  document.querySelectorAll<HTMLElement>('#community .bg-white\\/\\[0\\.03\\]').forEach((card) => {
     hover(card, () => {
-      animate(card, { transform: 'scale(1.03) translateY(-5px)' }, { duration: 0.35, ease: EASE_SOFT });
+      animate(card, { transform: 'scale(1.025) translateY(-4px)' }, { duration: 0.35, ease: EASE_SOFT });
       return () => animate(card, { transform: 'scale(1) translateY(0px)' }, { duration: 0.3, ease: EASE_SOFT });
     });
   });
 
   // Reacción dinámica en tarjetas de Experiencia
-  document.querySelectorAll<HTMLElement>('#experience .rounded-\\[24px\\], #experience .rounded-\\[20px\\]').forEach((card) => {
+  document.querySelectorAll<HTMLElement>('#experience .bg-white\\/\\[0\\.03\\]').forEach((card) => {
     hover(card, () => {
-      animate(card, { transform: 'scale(1.015) translateY(-4px)' }, { duration: 0.3, ease: EASE_SOFT });
+      animate(card, { transform: 'scale(1.012) translateY(-3px)' }, { duration: 0.3, ease: EASE_SOFT });
       return () => animate(card, { transform: 'scale(1) translateY(0px)' }, { duration: 0.28, ease: EASE_SOFT });
+    });
+  });
+
+  // Reacción dinámica en tracks de Mentorías
+  document.querySelectorAll<HTMLElement>('#mentorship .grid > div').forEach((card) => {
+    hover(card, () => {
+      animate(card, { transform: 'translateY(-4px)' }, { duration: 0.3, ease: EASE_SOFT });
+      return () => animate(card, { transform: 'translateY(0px)' }, { duration: 0.28, ease: EASE_SOFT });
     });
   });
 }
