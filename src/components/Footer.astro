@@ -1,84 +1,77 @@
 ---
-import { Github, Linkedin, Instagram, Mail } from "lucide-astro";
+/**
+ * Footer.astro
+ * Componente del Footer principal de la landing.
+ * Implementación fidelizada al nodo 66:1143 de Figma.
+ * Usa IsotivoTokidev.svg para el logotipo izquierdo y estiliza los botones de redes sociales a 54px para máxima consistencia visual con el Hero.
+ */
+import { Github, Linkedin, Instagram, Mail } from 'lucide-astro';
 
 const socialLinks = [
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/tokidev/",
-    label: "LinkedIn",
+  { 
+    icon: Github, 
+    href: "https://github.com/tokidev-ai", 
+    label: "GitHub" 
   },
-  { icon: Github, href: "https://github.com/tokidev-ai", label: "GitHub" },
-  {
-    icon: Instagram,
-    href: "https://www.instagram.com/tokidev.ai/",
-    label: "Instagram",
+  { 
+    icon: Linkedin, 
+    href: "https://www.linkedin.com/in/tokidev/", 
+    label: "LinkedIn" 
   },
-  {
-    icon: Mail,
-    href: "mailto:rodrigo.torricodelcastillo@gmail.com",
-    label: "Email",
+  { 
+    icon: Instagram, 
+    href: "https://www.instagram.com/tokidev.ai/", 
+    label: "Instagram" 
   },
+  { 
+    icon: Mail, 
+    href: "mailto:rodrigo.torricodelcastillo@gmail.com", 
+    label: "Email" 
+  }
 ];
 ---
 
-<footer
-  class="py-12 md:py-16 flex justify-center border-t border-brand-border/10"
+<footer 
+  class="w-full py-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 border-t border-white/10 mt-16"
 >
-  <div
-    class="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4"
-  >
-    <!-- Logo & Brand Info -->
-    <div class="flex items-center gap-3">
-      <div
-        class="w-8 h-8 rounded-lg bg-linear-to-br from-brand-orange to-brand-yellow/80 flex items-center justify-center"
-      >
-        <span class="text-white font-bold text-lg leading-none pt-0.5">t</span>
-      </div>
-      <div class="flex flex-col">
-        <span
-          class="text-[16px] font-bold text-brand-text/90 leading-tight tracking-tight"
-          >Tokidev</span
-        >
-        <span
-          class="text-[11px] font-medium text-brand-text/30 uppercase tracking-tighter"
-        >
-          Senior Fullstack Engineer
-        </span>
+  
+  <!-- Logotipo e Información Izquierda (Figma 66:1144) -->
+  <div class="flex items-center gap-3 shrink-0">
+    <div class="h-9 w-auto flex items-center justify-center shrink-0">
+      <img 
+        src="/assets/logos/IsotivoTokidev.svg" 
+        alt="Tokidev Isotipo" 
+        class="h-9 w-auto object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <!-- Fallback en caso de que falle la carga -->
+      <div class="hidden w-8 h-8 rounded-lg bg-gradient-to-r from-brand-red to-brand-orange items-center justify-center shadow-sm">
+        <span class="text-white font-bold text-lg leading-none">T</span>
       </div>
     </div>
-
-    <!-- Navigation (Mobile focused) -->
-    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 md:hidden">
-      {
-        ["About", "Experience", "Projects", "Community", "Blog"].map((link) => (
-          <a
-            href={link === "Blog" ? "/blog" : `/#${link.toLowerCase()}`}
-            class="text-[13px] font-medium text-brand-text/40 hover:text-brand-orange transition-colors"
-          >
-            {link}
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Social Links -->
-    <div class="flex gap-4">
-      {
-        socialLinks.map((social) => (
-          <a
-            href={social.href}
-            aria-label={social.label}
-            class="w-10 h-10 md:w-9 md:h-9 flex items-center justify-center rounded-xl bg-[#2d2550]/40 border border-brand-border/12 text-brand-orange/70 hover:text-brand-orange hover:bg-[#2d2550]/60 transition-all border-solid"
-          >
-            <social.icon size={18} />
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Copyright (Mobile relative position) -->
-    <div class="md:hidden text-[11px] text-brand-text/20 font-medium">
-      © {new Date().getFullYear()} Tokidev. All rights reserved.
+    <div class="flex flex-col items-start leading-none gap-1">
+      <p class="font-bold text-base text-white tracking-tight">
+        Tokidev
+      </p>
+      <p class="text-[#a0a0b4] text-xs font-medium">
+        Senior Fullstack Engineer
+      </p>
     </div>
   </div>
+
+  <!-- Botones de Redes Sociales Derecha (Figma 66:1153 - Botones idénticos a Hero de 54px) -->
+  <div class="flex gap-3.5 items-center shrink-0">
+    {socialLinks.map((social) => (
+      <a
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={social.label}
+        class="backdrop-blur-[5px] bg-white/5 border border-white/10 flex items-center justify-center rounded-[14px] size-social-size hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-300 shadow-md shadow-purple-950/20"
+      >
+        <social.icon size={22} class="text-white" />
+      </a>
+    ))}
+  </div>
+
 </footer>

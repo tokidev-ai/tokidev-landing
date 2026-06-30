@@ -1,19 +1,11 @@
 ---
-// ─── Componente FeaturedProject ───
-// Implementación fidelizada al nodo 66:885 de Figma (Sección Selected Work).
-// Redirige View project a la URL https://solveos-app.netlify.app/ en una nueva pestaña.
+/**
+ * FeaturedProject.astro
+ * Componente de la sección 02 — Selected Work.
+ * Importa los datos del proyecto destacado de forma limpia desde src/data/projects.ts.
+ */
 import ProjectCard from "./ProjectCard.astro";
-
-const featuredProject = {
-  id: "01",
-  title: "solveOS",
-  subtitle: "distributed problem solving",
-  description:
-    "A distributed operating system framework for real-time problem solving. Built with Rust and WebAssembly to enable high-performance compute in browser environments.",
-  tech: ["RUST", "WASM", "REDIS"],
-  color: "#FA743F",
-  link: "https://solveos-app.netlify.app/"
-};
+import { featuredProject } from "../data/projects";
 ---
 
 <section

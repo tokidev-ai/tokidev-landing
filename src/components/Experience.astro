@@ -1,38 +1,11 @@
 ---
-// ─── Componente Experience (Carrera Profesional / Timeline) ───
-// Implementación fidelizada al nodo 66:990 de Figma.
-// Rediseñado como una línea de tiempo vertical fluida con marcadores, badges y tarjetas de rol responsivas.
+/**
+ * Experience.astro
+ * Componente de la sección 04 — Carrera Profesional (Timeline).
+ * Desacopla la fuente de datos importando experiencesList desde src/data/experience.ts.
+ */
 import ExperienceCard from "./ExperienceCard.astro";
-
-const experiences = [
-  {
-    company: "Unosquare",
-    role: "Senior Software Engineer",
-    period: "2021 — PRESENT",
-    description: "Leading enterprise transformation through scalable cloud architectures.",
-    isCurrent: true,
-    logoInitial: "U",
-    logoColor: "from-[#FA743F] to-[#DA2984]"
-  },
-  {
-    company: "NICE CXone",
-    role: "Fullstack Engineer",
-    period: "2019 — 2021",
-    description: "Building real-time communication platforms for global enterprise.",
-    isCurrent: false,
-    logoInitial: "N",
-    logoColor: "from-[#DA2984] to-[#A406E9]"
-  },
-  {
-    company: "Special Tours",
-    role: "Software Developer",
-    period: "2017 — 2019",
-    description: "Engineering complex booking engines for the European travel market.",
-    isCurrent: false,
-    logoInitial: "S",
-    logoColor: "from-[#A406E9] to-[#5014A0]"
-  }
-];
+import { experiencesList } from "../data/experience";
 ---
 
 <section id="experience" class="py-16 lg:py-24 w-full flex flex-col items-center">
@@ -48,10 +21,16 @@ const experiences = [
 
   <!-- Línea de Tiempo / Timeline (nodo 66:994) -->
   <div class="w-full flex flex-col items-start relative">
-    {experiences.map((exp, idx) => (
+    {experiencesList.map((exp, idx) => (
       <ExperienceCard 
-        {...exp} 
-        isLast={idx === experiences.length - 1} 
+        company={exp.company}
+        role={exp.role}
+        period={exp.period}
+        description={exp.description}
+        isCurrent={exp.isCurrent}
+        logoInitial={exp.logoInitial}
+        logoColor={exp.logoColor}
+        isLast={idx === experiencesList.length - 1} 
       />
     ))}
   </div>

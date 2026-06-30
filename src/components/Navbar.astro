@@ -6,12 +6,11 @@ import { Menu, X } from 'lucide-astro';
 import Button from './Button.astro';
 
 const navTabs = [
-  { name: 'WORK', href: '/#experience', target: 'experience' },
-  { name: 'ABOUT', href: '/#about', target: 'about' },
-  { name: 'SPEAKING', href: '/#community', target: 'community' },
+  { name: 'WORK', href: '/#projects', target: 'projects' },
+  { name: 'SPEAKING', href: '/#speaking', target: 'speaking' },
+  { name: 'MENTORSHIP', href: '/#mentorship', target: 'mentorship' },
   { name: 'WRITING', href: '/blog', target: 'writing' },
   { name: 'CONTACT', href: '/#contact', target: 'contact' },
-  { name: 'BLOG', href: '/blog', target: 'blog' },
 ];
 ---
 
@@ -168,17 +167,28 @@ const navTabs = [
 
   const pathname = window.location.pathname;
   if (pathname.includes('/blog')) {
-    setActiveTab('blog');
+    setActiveTab('writing');
   } else {
     const sections = document.querySelectorAll('section[id]');
+    
+    // Función para verificar si llegamos al final de la página
+    const checkBottom = () => {
+      return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+    };
+
     const observer = new IntersectionObserver((entries) => {
+      if (checkBottom()) {
+        setActiveTab('contact');
+        return;
+      }
+
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setActiveTab(entry.target.id);
         }
       });
       if (window.scrollY < 100) {
-        setActiveTab('work');
+        setActiveTab('projects');
       }
     }, {
       rootMargin: '-20% 0px -60% 0px',
@@ -186,5 +196,12 @@ const navTabs = [
     });
 
     sections.forEach(sec => observer.observe(sec));
+
+    // Escuchar scroll para pintar contacto de inmediato si llegamos al fondo
+    window.addEventListener('scroll', () => {
+      if (checkBottom()) {
+        setActiveTab('contact');
+      }
+    }, { passive: true });
   }
 </script>
