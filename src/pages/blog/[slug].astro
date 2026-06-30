@@ -42,7 +42,7 @@ const relatedPosts = Object.entries(allPosts)
       <div class="w-[92%] max-w-[1120px] flex flex-col items-center">
 
         <!-- Breadcrumbs -->
-        <nav class="w-full flex items-center gap-2 text-xs text-brand-text/50 font-medium mb-8" aria-label="Breadcrumb">
+        <nav class="w-full flex items-center gap-2 text-xs text-[#a0a0b4] font-medium mb-8" aria-label="Breadcrumb">
           <a href="/blog" class="hover:text-white transition-colors">Blog</a>
           <span class="text-white/20">/</span>
           <span>{category}</span>
@@ -51,32 +51,32 @@ const relatedPosts = Object.entries(allPosts)
         </nav>
 
         <!-- Encabezado del artículo -->
-        <header class="w-full max-w-[920px] flex flex-col items-start gap-5 mb-6">
+        <header class="w-full max-w-[1120px] flex flex-col items-start gap-5 mb-6">
           <!-- Chip de categoría -->
-          <div class="px-3 py-1.5 rounded-full bg-brand-orange/15 border border-brand-orange/30">
-            <span class="text-brand-orange font-semibold text-[11px] tracking-widest uppercase">{category}</span>
+          <div class="bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md flex items-center justify-center">
+            <span class="font-mono font-semibold text-[10.5px] text-[#DA2984] tracking-[0.315px] uppercase">{category}</span>
           </div>
 
-          <!-- Título con gradiente -->
-          <h1 class="text-[36px] sm:text-[48px] md:text-[60px] font-bold tracking-tight leading-[1.05] bg-linear-to-r from-white via-white via-55% to-brand-orange bg-clip-text text-transparent">
+          <!-- Título con gradiente a magenta oficial -->
+          <h1 class="text-[36px] sm:text-[48px] md:text-[56px] font-bold tracking-tight leading-[1.1] bg-gradient-to-r from-white via-white via-[70%] to-[#DA2984] bg-clip-text text-transparent w-full">
             {title}
           </h1>
 
           <!-- Extracto -->
-          <p class="text-lg md:text-xl font-normal leading-normal text-brand-text/80 max-w-[800px]">
+          <p class="text-[17px] sm:text-[18px] font-normal leading-relaxed text-[#a0a0b4] w-full">
             {excerpt}
           </p>
         </header>
 
         <!-- Meta: fecha, tiempo de lectura y compartir -->
-        <div class="w-full max-w-[920px] flex flex-col sm:flex-row sm:items-center justify-between py-6 border-t border-white/5 mb-16 gap-4">
-          <div class="flex items-center gap-3.5 text-xs font-medium text-white/50">
+        <div class="w-full max-w-[1120px] flex flex-col sm:flex-row sm:items-center justify-between py-6 border-t border-white/10 mb-16 gap-4">
+          <div class="flex items-center gap-3.5 text-xs font-mono text-white/50">
             <span>{date}</span>
             <span class="w-1 h-1 rounded-full bg-white/20"></span>
             <span>{readTime}</span>
           </div>
 
-          <!-- Botones de compartir -->
+          <!-- Botones de compartir estilizados a 40px con esquinas de 12px -->
           <div class="flex items-center gap-2">
             {[
               { label: '𝕏', title: 'Share on X' },
@@ -86,7 +86,7 @@ const relatedPosts = Object.entries(allPosts)
             ].map(({ label, title: t }) => (
               <button
                 title={t}
-                class="w-[38px] h-[38px] rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-white/10 transition-colors text-sm"
+                class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-300 text-sm cursor-pointer"
               >
                 {label}
               </button>
@@ -94,28 +94,38 @@ const relatedPosts = Object.entries(allPosts)
           </div>
         </div>
 
-        <!-- Hero visual dinámico por color del post -->
+        <!-- Portada visual dinámica por categoría (Figma 104:1412 / 104:1427) -->
         <div
-          class="w-full max-w-[1120px] h-[250px] md:h-[420px] rounded-[32px] mb-16 overflow-hidden relative flex items-center justify-center"
-          style="background: linear-gradient(180deg, #1A1029 0%, #0D0D23 100%);"
+          class="w-full max-w-[1120px] h-[250px] md:h-[440px] rounded-[20px] mb-16 overflow-hidden relative flex items-center justify-center shadow-2xl shadow-purple-950/20"
+          style={`background: ${
+            category.toLowerCase().includes('engineering') ? 'linear-gradient(139.958deg, rgb(46, 41, 140) 14.085%, rgb(158, 26, 133) 84.507%)' :
+            category.toLowerCase().includes('career') ? 'linear-gradient(139.958deg, rgb(199, 33, 102) 14.085%, rgb(250, 128, 56) 84.507%)' :
+            category.toLowerCase().includes('distributed') ? 'linear-gradient(139.958deg, rgb(77, 33, 153) 14.085%, rgb(204, 41, 115) 84.507%)' :
+            category.toLowerCase().includes('source') ? 'linear-gradient(139.958deg, rgb(33, 77, 140) 14.085%, rgb(140, 31, 158) 84.507%)' :
+            category.toLowerCase().includes('thoughts') ? 'linear-gradient(139.958deg, rgb(140, 31, 128) 14.085%, rgb(242, 115, 64) 84.507%)' :
+            'linear-gradient(139.958deg, rgb(115, 26, 199) 14.085%, rgb(242, 107, 56) 84.507%)'
+          }`}
         >
-          <div class="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] rounded-full blur-[80px]" style={`background-color: ${color}40;`}></div>
-          <div class="absolute w-[150px] h-[150px] bg-white/20 rounded-full blur-2xl"></div>
+          <span class="absolute top-4 right-6 font-mono text-[10px] text-white/50 tracking-[0.2px] select-none pointer-events-none">
+            FOTO ▦
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-[#050510]/80 z-0"></div>
+          <div class="absolute w-[200px] h-[200px] bg-white/10 rounded-full blur-3xl z-10"></div>
         </div>
 
         <!-- Cuerpo del artículo (Markdown) -->
-        <article class="w-full max-w-[720px] article-prose">
+        <article class="w-full max-w-[1120px] article-prose">
           <Content />
         </article>
 
         <!-- Footer de compartir -->
-        <footer class="w-full max-w-[720px] py-16">
+        <footer class="w-full max-w-[1120px] py-16">
           <div class="w-full h-px bg-white/10 mb-7"></div>
           <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
             <span class="text-[11px] font-semibold text-brand-text/60 tracking-widest uppercase">Share this article</span>
             <div class="flex items-center gap-2.5 flex-wrap justify-center">
               {['Twitter', 'LinkedIn', 'Copy link', 'Save'].map((label) => (
-                <button class="px-[18px] py-2.5 rounded-full border border-white/10 text-xs font-medium hover:bg-white/5 transition-colors">
+                <button class="px-[18px] py-2.5 rounded-full border border-white/10 text-xs font-medium hover:bg-white/5 hover:border-white/20 transition-all hover:scale-102 duration-300 cursor-pointer">
                   {label}
                 </button>
               ))}
@@ -125,16 +135,16 @@ const relatedPosts = Object.entries(allPosts)
         </footer>
 
         <!-- Autor -->
-        <div class="w-full max-w-[720px] mb-24">
+        <div class="w-full max-w-[1120px] mb-24">
           <AuthorCard />
         </div>
 
         <!-- Posts relacionados -->
         {relatedPosts.length > 0 && (
           <div class="w-full max-w-[1120px] flex flex-col items-center mb-24">
-            <div class="flex flex-col items-center text-center gap-3 mb-10">
-              <span class="text-brand-orange text-xs font-semibold tracking-widest uppercase">Keep Exploring</span>
-              <h2 class="text-white text-4xl font-bold">Related writings</h2>
+            <div class="flex flex-col items-center text-center gap-3.5 mb-10">
+              <span class="text-[#DA2984] text-xs font-semibold tracking-widest uppercase">Keep Exploring</span>
+              <h2 class="text-white text-3xl sm:text-4xl font-bold tracking-tight">Related writings</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
               {relatedPosts.map((rPost) => (
@@ -151,9 +161,6 @@ const relatedPosts = Object.entries(allPosts)
             </div>
           </div>
         )}
-
-        <!-- Newsletter CTA -->
-        <CTANewsletter />
 
       </div>
     </main>
