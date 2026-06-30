@@ -6,6 +6,7 @@ export interface ExperienceItem {
   isCurrent: boolean;
   logoInitial: string;
   logoColor: string;
+  logoUrl?: string;
 }
 
 export const experiencesList: ExperienceItem[] = [
@@ -16,7 +17,8 @@ export const experiencesList: ExperienceItem[] = [
     description: "Leading enterprise transformation through scalable cloud architectures.",
     isCurrent: true,
     logoInitial: "U",
-    logoColor: "from-[#FA743F] to-[#DA2984]"
+    logoColor: "from-[#FA743F] to-[#DA2984]",
+    logoUrl: "https://res.cloudinary.com/dlppldpo1/image/upload/v1782783259/logounosquare_saavfy.jpg"
   },
   {
     company: "NICE CXone",
@@ -25,15 +27,17 @@ export const experiencesList: ExperienceItem[] = [
     description: "Building real-time communication platforms for global enterprise.",
     isCurrent: false,
     logoInitial: "N",
-    logoColor: "from-[#DA2984] to-[#A406E9]"
+    logoColor: "from-[#DA2984] to-[#A406E9]",
+    logoUrl: "https://res.cloudinary.com/dlppldpo1/image/upload/v1782783258/logonice_r8fh4t.webp"
   },
   {
-    company: "Special Tours",
+    company: "McGraw-Hill",
     role: "Software Developer",
     period: "2017 — 2019",
-    description: "Engineering complex booking engines for the European travel market.",
+    description: "Developing scalable educational platforms and services for global markets.",
     isCurrent: false,
-    logoInitial: "S",
-    logoColor: "from-[#A406E9] to-[#5014A0]"
+    logoInitial: "M",
+    logoColor: "from-[#A406E9] to-[#5014A0]",
+    logoUrl: "https://res.cloudinary.com/dlppldpo1/image/upload/v1782783259/logomcgrayhill_pho06c.jpg"
   }
 ];

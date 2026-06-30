@@ -145,11 +145,11 @@ const navTabs = [
       
       if (isMobile) {
         if (tab.getAttribute('data-target') === targetId) {
-          tab.classList.remove('text-white/70', 'bg-white/3');
-          tab.classList.add('text-white', 'bg-gradient-to-r', 'from-[#DA2984]', 'to-[#A406E9]', 'border-transparent');
+          tab.classList.remove('text-white/70', 'bg-white/3', 'border-white/5');
+          tab.classList.add('text-white', 'bg-white/10', 'border-white/20');
         } else {
-          tab.classList.remove('text-white', 'bg-gradient-to-r', 'from-[#DA2984]', 'to-[#A406E9]', 'border-transparent');
-          tab.classList.add('text-white/70', 'bg-white/3');
+          tab.classList.remove('text-white', 'bg-white/10', 'border-white/20');
+          tab.classList.add('text-white/70', 'bg-white/3', 'border-white/5');
         }
       } else {
         if (tab.getAttribute('data-target') === targetId) {

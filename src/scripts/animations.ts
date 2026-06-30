@@ -218,13 +218,6 @@ function initCardHovers() {
     });
   });
 
-  // Reacción dinámica en tarjetas de Experiencia
-  document.querySelectorAll<HTMLElement>('#experience .bg-white\\/\\[0\\.03\\]').forEach((card) => {
-    hover(card, () => {
-      animate(card, { transform: 'scale(1.012) translateY(-3px)' }, { duration: 0.3, ease: EASE_SOFT });
-      return () => animate(card, { transform: 'scale(1) translateY(0px)' }, { duration: 0.28, ease: EASE_SOFT });
-    });
-  });
 
   // Reacción dinámica en tracks de Mentorías
   document.querySelectorAll<HTMLElement>('#mentorship .grid > div').forEach((card) => {

@@ -11,6 +11,7 @@ interface Props {
   isLast?: boolean;
   logoInitial?: string;
   logoColor?: string;
+  logoUrl?: string;
 }
 
 const {
@@ -21,7 +22,8 @@ const {
   isCurrent = false,
   isLast = false,
   logoInitial = "T",
-  logoColor = "from-[#FA743F] to-[#DA2984]"
+  logoColor = "from-[#FA743F] to-[#DA2984]",
+  logoUrl
 } = Astro.props;
 ---
 
@@ -68,8 +70,12 @@ const {
       </div>
 
       <!-- Logotipo / Avatar de la Empresa -->
-      <div class={`w-14 h-14 sm:w-[68px] sm:h-[68px] rounded-full shrink-0 bg-gradient-to-br ${logoColor} flex items-center justify-center font-bold text-xl sm:text-2xl text-white shadow-md shadow-purple-900/30`}>
-        <span>{logoInitial}</span>
+      <div class={`w-14 h-14 sm:w-[68px] sm:h-[68px] rounded-full shrink-0 bg-gradient-to-br ${logoColor} flex items-center justify-center font-bold text-xl sm:text-2xl text-white shadow-md shadow-purple-900/30 overflow-hidden`}>
+        {logoUrl ? (
+          <img src={logoUrl} alt={`${company} logo`} class="w-full h-full object-cover" />
+        ) : (
+          <span>{logoInitial}</span>
+        )}
       </div>
 
     </div>

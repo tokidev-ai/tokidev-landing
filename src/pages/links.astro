@@ -3,11 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import BackgroundGlows from "../components/BackgroundGlows.astro";
 import { Linkedin, Instagram, Github, Mail, ArrowUpRight } from "lucide-astro";
 
-// Obtener últimos posts para el carrusel
+// Obtener todos los posts y formatear su slug de forma dinámica
 const posts = Object.values(
   import.meta.glob("../posts/*.md", { eager: true }),
 ) as any[];
-const latestPosts = [...posts].reverse().slice(0, 3);
+
+const formattedPosts = posts.map((post) => {
+  const slug = post.file.split('/').pop()?.replace('.md', '');
+  return {
+    ...post,
+    url: `/blog/${slug}`,
+  };
+});
+
+const latestPosts = [...formattedPosts].reverse().slice(0, 3);
 
 const socialLinks = [
   {
@@ -41,9 +50,9 @@ const socialLinks = [
     <div class="w-[92%] max-w-[440px] flex flex-col items-center gap-10">
       <!-- Profile Header -->
       <div class="flex flex-col items-center text-center gap-5">
-        <!-- Avatar con anillo gradiente -->
+        <!-- Avatar con anillo gradiente oficial de marca -->
         <div
-          class="w-32 h-32 rounded-full p-[2.5px] bg-linear-to-br from-brand-orange via-brand-purple to-brand-yellow hover:scale-105 transition-transform duration-500"
+          class="w-32 h-32 rounded-full p-[2.5px] bg-gradient-to-r from-[#DA2984] to-[#A406E9] hover:scale-105 transition-transform duration-500 shadow-lg shadow-purple-900/30"
         >
           <div
             class="w-full h-full rounded-full bg-brand-bg flex items-center justify-center overflow-hidden border-[3px] border-brand-bg relative group"
@@ -66,7 +75,7 @@ const socialLinks = [
           >
             Rodrigo Torrico
           </h1>
-          <p class="text-brand-text/50 font-semibold text-[14px] tracking-wide">
+          <p class="text-[#DA2984] font-semibold text-[14px] tracking-wide">
             @tokidev.ai
           </p>
           <p
@@ -81,7 +90,7 @@ const socialLinks = [
       <div class="w-full flex flex-col gap-3.5">
         <a
           href="/"
-          class="w-full flex items-center justify-center py-btn-py px-6 rounded-full bg-white text-[#0f121a] text-[15px] font-semibold hover:bg-zinc-200 transition-colors hover:scale-[1.015]"
+          class="w-full flex items-center justify-center py-3.5 px-6 rounded-full bg-gradient-to-r from-[#DA2984] to-[#A406E9] text-white text-[15px] font-semibold hover:brightness-110 transition-all hover:scale-[1.015] shadow-lg shadow-purple-900/30 cursor-pointer"
         >
           Visit Portfolio
         </a>
@@ -93,13 +102,13 @@ const socialLinks = [
               target="_blank"
               rel="noopener noreferrer"
               aria-label={name}
-              class="w-full flex items-center justify-between py-btn-py px-6 rounded-full bg-white/3 border border-white/10 text-white text-[15px] font-semibold hover:bg-white/10 transition-colors hover:scale-[1.015] group"
+              class="w-full flex items-center justify-between py-3.5 px-6 rounded-full bg-white/3 border border-white/10 text-white text-[15px] font-semibold hover:bg-white/10 hover:border-white/20 transition-colors hover:scale-[1.015] group cursor-pointer"
             >
               <div class="flex items-center gap-3">
-                <Icon class="w-[20px] h-[20px] text-brand-text/60 group-hover:text-brand-orange transition-colors" />
+                <Icon class="w-[20px] h-[20px] text-brand-text/60 group-hover:text-[#DA2984] transition-colors" />
                 <span>{name}</span>
               </div>
-              <ArrowUpRight class="w-btn-py h-btn-py text-brand-text/40 group-hover:text-white transition-colors" />
+              <ArrowUpRight class="w-4 h-4 text-brand-text/40 group-hover:text-white transition-colors" />
             </a>
           ))
         }
@@ -108,15 +117,15 @@ const socialLinks = [
       <!-- Latest Blogs Stack -->
       <div class="w-full flex flex-col items-center mt-6">
         <div class="w-full flex items-center gap-3 mb-5">
-          <div class="h-px w-6 bg-linear-to-r from-brand-orange to-transparent">
+          <div class="h-px w-6 bg-gradient-to-r from-[#DA2984] to-transparent">
           </div>
           <span
-            class="text-brand-orange text-[11px] font-semibold uppercase tracking-[1.5px]"
+            class="text-[#DA2984] text-[11px] font-semibold uppercase tracking-[1.5px]"
           >
             Latest Writings
           </span>
           <div
-            class="h-px flex-1 bg-linear-to-l from-brand-orange/0 to-white/10"
+            class="h-px flex-1 bg-gradient-to-l from-transparent to-white/10"
           >
           </div>
         </div>
@@ -126,22 +135,26 @@ const socialLinks = [
             latestPosts.map((post) => (
               <a
                 href={post.url}
-                class="w-full flex flex-col gap-2 p-5 rounded-[24px] bg-white/3 border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all group hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-orange/5"
+                class="w-full flex flex-col gap-2 p-5 rounded-[24px] bg-white/3 border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all group hover:-translate-y-1 hover:shadow-lg hover:shadow-[#DA2984]/5 cursor-pointer"
               >
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <div
                       class="w-2 h-2 rounded-full"
-                      style={`background-color: ${post.frontmatter.color || "#ef6c4a"}`}
+                      style={`background-color: ${
+                        post.frontmatter.category?.toLowerCase().includes('engineering') ? '#2e298c' :
+                        post.frontmatter.category?.toLowerCase().includes('career') ? '#c72166' :
+                        '#da2984'
+                      }`}
                     />
-                    <span class="text-[11px] font-medium text-brand-text/50 uppercase tracking-wider">
+                    <span class="text-[11px] font-mono text-white/50 uppercase tracking-wider">
                       {post.frontmatter.date}
                     </span>
                   </div>
-                  <ArrowUpRight class="w-btn-py h-btn-py text-brand-text/40 group-hover:text-brand-orange transition-colors" />
+                  <ArrowUpRight class="w-4 h-4 text-brand-text/40 group-hover:text-[#DA2984] transition-colors" />
                 </div>
                 <div class="flex flex-col mt-1">
-                  <h3 class="text-[16px] font-bold text-white leading-snug group-hover:text-brand-orange transition-colors">
+                  <h3 class="text-[16px] font-bold text-white leading-snug group-hover:text-[#DA2984] transition-colors line-clamp-1">
                     {post.frontmatter.title}
                   </h3>
                   <p class="text-[13px] text-brand-text/60 line-clamp-2 mt-1.5 leading-relaxed">
